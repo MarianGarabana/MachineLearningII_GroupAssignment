@@ -716,14 +716,6 @@ with tab4:
         )
 
     with out_col:
-        if "prediction_result" not in st.session_state:
-            st.markdown("""
-<div style="height:350px; display:flex; align-items:center; justify-content:center;
-     border:2px dashed #2E75B6; border-radius:12px; color:#B0BEC5; font-size:1rem;">
-  Click <strong style="color:#4FC3F7;">Predict</strong> to see results here
-</div>
-""", unsafe_allow_html=True)
-
         if predict_btn:
             # ── Derive categorical columns ────────────────────
             if num_employees < 50:
