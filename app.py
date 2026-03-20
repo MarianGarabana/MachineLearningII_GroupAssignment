@@ -586,7 +586,7 @@ Pruning via GridSearch reduces the gap meaningfully.
             })
             st.dataframe(dt_report, hide_index=True, use_container_width=True)
 
-    with st.expander(":material/forest: Random Forest", icon=":material/forest:"):
+    with st.expander("Random Forest", icon=":material/forest:"):
         col_a, col_b = st.columns([1, 1.5], gap="large")
         with col_a:
             st.markdown("""
@@ -614,7 +614,7 @@ Precision: 0.24 → **0.45** · Overall F1-macro → 0.80.
             })
             st.dataframe(rf_report, hide_index=True, use_container_width=True)
 
-    with st.expander(":material/rocket_launch: XGBoost", icon=":material/rocket_launch:"):
+    with st.expander("XGBoost", icon=":material/rocket_launch:"):
         col_a, col_b = st.columns([1, 1.5], gap="large")
         with col_a:
             st.markdown("""
