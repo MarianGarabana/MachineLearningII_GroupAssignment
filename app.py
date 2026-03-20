@@ -560,7 +560,7 @@ A deliberate **3-model progression** was designed to build intuition and justify
     # ── Per-model expanders ───────────────────────────────────
     st.markdown("#### Per-model deep dive")
 
-    with st.expander(":material/account_tree: Decision Tree", icon=":material/account_tree:"):
+    with st.expander("Decision Tree", icon=":material/account_tree:"):
         col_a, col_b = st.columns([1, 1.5], gap="large")
         with col_a:
             st.markdown("""
@@ -902,7 +902,7 @@ with tab4:
             # 4 — Business recommendation
             st.markdown(f"""
 <div class="card" style="border-left: 4px solid {colour};">
-  <strong style="color:{colour};">:material/tips_and_updates: Business recommendation</strong><br><br>
+  <strong style="color:{colour};">Business recommendation</strong><br><br>
   {STAGE_RECS.get(pred_label, '')}
 </div>
 """, unsafe_allow_html=True)
@@ -1023,7 +1023,7 @@ with tab5:
     st.markdown(" ", unsafe_allow_html=True)
     st.markdown("""
 <div class="diagnostic-box">
-  <h3 style="color:#4FC3F7; margin-top:0;">:material/query_stats: Model as a diagnostic tool</h3>
+  <h3 style="color:#4FC3F7; margin-top:0;">Model as a diagnostic tool</h3>
   <p style="color:#FFFFFF; font-size:1.0rem; margin:0;">
     This model <strong>replaces lengthy manual consultancy assessments</strong>. Given any company's
     operational metrics, it outputs the current AI adoption stage and — via SHAP values — identifies the
