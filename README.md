@@ -1,5 +1,7 @@
 # AI Adoption Stage Classifier
 
+https://ai-adoption-predictor.streamlit.app/ 
+
 **Group 3 · MBDS 2026 · ML2 Group Assignment · IE University**
 
 Interactive Streamlit app that predicts a company's AI adoption stage (none / pilot / partial / full)
