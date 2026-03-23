@@ -646,56 +646,64 @@ html { scroll-behavior: smooth; }
     border: 1px solid rgba(255,255,255,0.04);
 }
 
-/* DataFrame tables — dark glass with subtle border */
+/* DataFrame tables — DARK THEMED (no white) */
 [data-testid="stDataFrame"] {
     border-radius: 14px !important;
     overflow: hidden;
-    border: 1px solid rgba(79,195,247,0.1) !important;
-    background: rgba(10,18,36,0.5);
+    border: 1px solid rgba(79,195,247,0.15) !important;
 }
-[data-testid="stDataFrame"] th {
-    background: rgba(79,195,247,0.08) !important;
-    color: #4FC3F7 !important;
+[data-testid="stDataFrame"] iframe {
+    filter: invert(0.88) hue-rotate(180deg) saturate(1.2) brightness(0.9);
+    border-radius: 14px;
 }
 
 /* Smooth gradient fade between tab content sections */
 [data-testid="stTabContent"] {
     padding-top: 12px;
-    transition: background 0.8s ease;
+    transition: all 1s ease;
+    position: relative;
 }
 
-/* ── PER-TAB AMBIENT COLOR SCHEMES ── */
-/* Each tab gets a unique subtle color atmosphere */
+/* ── PER-TAB AMBIENT COLOR SCHEMES (stronger tints) ── */
+/* Each tab gets a unique color atmosphere with visible gradient accent */
 [data-testid="stTabContent"]:nth-child(1) {
-    background: linear-gradient(180deg, rgba(8,14,28,0) 0%, rgba(10,20,40,0.15) 20%, rgba(10,20,40,0.15) 80%, rgba(8,14,28,0) 100%);
+    background: linear-gradient(180deg, rgba(8,14,28,0) 0%, rgba(10,20,45,0.25) 15%, rgba(10,20,45,0.25) 85%, rgba(8,14,28,0) 100%);
+    border-top: 2px solid rgba(79,195,247,0.15);
 }
 /* EDA — warm amber undertone */
 [data-testid="stTabContent"]:nth-child(2) {
-    background: linear-gradient(180deg, rgba(8,14,28,0) 0%, rgba(25,18,10,0.12) 20%, rgba(20,15,8,0.12) 80%, rgba(8,14,28,0) 100%);
+    background: linear-gradient(180deg, rgba(8,14,28,0) 0%, rgba(35,25,10,0.25) 15%, rgba(30,22,8,0.2) 85%, rgba(8,14,28,0) 100%);
+    border-top: 2px solid rgba(255,152,0,0.2);
 }
 /* Models — green/teal undertone */
 [data-testid="stTabContent"]:nth-child(3) {
-    background: linear-gradient(180deg, rgba(8,14,28,0) 0%, rgba(8,22,18,0.15) 20%, rgba(8,22,18,0.15) 80%, rgba(8,14,28,0) 100%);
+    background: linear-gradient(180deg, rgba(8,14,28,0) 0%, rgba(8,28,22,0.28) 15%, rgba(8,25,20,0.22) 85%, rgba(8,14,28,0) 100%);
+    border-top: 2px solid rgba(16,185,129,0.2);
 }
 /* Live Predictor — purple undertone */
 [data-testid="stTabContent"]:nth-child(4) {
-    background: linear-gradient(180deg, rgba(8,14,28,0) 0%, rgba(18,12,28,0.15) 20%, rgba(18,12,28,0.15) 80%, rgba(8,14,28,0) 100%);
+    background: linear-gradient(180deg, rgba(8,14,28,0) 0%, rgba(22,14,35,0.3) 15%, rgba(20,12,30,0.25) 85%, rgba(8,14,28,0) 100%);
+    border-top: 2px solid rgba(139,92,246,0.25);
 }
 /* Findings — cyan undertone */
 [data-testid="stTabContent"]:nth-child(5) {
-    background: linear-gradient(180deg, rgba(8,14,28,0) 0%, rgba(8,18,28,0.18) 20%, rgba(8,18,28,0.18) 80%, rgba(8,14,28,0) 100%);
+    background: linear-gradient(180deg, rgba(8,14,28,0) 0%, rgba(8,22,35,0.3) 15%, rgba(8,20,30,0.25) 85%, rgba(8,14,28,0) 100%);
+    border-top: 2px solid rgba(79,195,247,0.2);
 }
 /* PE/VC — gold/amber undertone */
 [data-testid="stTabContent"]:nth-child(6) {
-    background: linear-gradient(180deg, rgba(8,14,28,0) 0%, rgba(28,22,8,0.12) 20%, rgba(28,22,8,0.12) 80%, rgba(8,14,28,0) 100%);
+    background: linear-gradient(180deg, rgba(8,14,28,0) 0%, rgba(35,28,8,0.25) 15%, rgba(30,24,8,0.2) 85%, rgba(8,14,28,0) 100%);
+    border-top: 2px solid rgba(251,191,36,0.2);
 }
 /* Quant Finance — deep blue/indigo undertone */
 [data-testid="stTabContent"]:nth-child(7) {
-    background: linear-gradient(180deg, rgba(8,14,28,0) 0%, rgba(10,12,35,0.2) 20%, rgba(10,12,35,0.2) 80%, rgba(8,14,28,0) 100%);
+    background: linear-gradient(180deg, rgba(8,14,28,0) 0%, rgba(12,14,42,0.35) 15%, rgba(10,12,38,0.3) 85%, rgba(8,14,28,0) 100%);
+    border-top: 2px solid rgba(99,102,241,0.25);
 }
 /* Executive Summary — premium dark with emerald hint */
 [data-testid="stTabContent"]:nth-child(8) {
-    background: linear-gradient(180deg, rgba(8,14,28,0) 0%, rgba(8,20,16,0.15) 20%, rgba(8,20,16,0.15) 80%, rgba(8,14,28,0) 100%);
+    background: linear-gradient(180deg, rgba(8,14,28,0) 0%, rgba(8,28,20,0.28) 15%, rgba(8,24,18,0.22) 85%, rgba(8,14,28,0) 100%);
+    border-top: 2px solid rgba(16,185,129,0.25);
 }
 </style>
 """, unsafe_allow_html=True)
