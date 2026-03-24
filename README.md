@@ -2,6 +2,8 @@
 
 https://ai-adoption-predictor.streamlit.app/ 
 
+https://gamma.app/docs/AI-Investment-Without-Direction-is-Just-Spending-97ycgv5x6ieu9hm
+
 **Group 3 · MBDS 2026 · ML2 Group Assignment · IE University**
 
 Interactive Streamlit app that predicts a company's AI adoption stage (none / pilot / partial / full)
