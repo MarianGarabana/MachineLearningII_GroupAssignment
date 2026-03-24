@@ -1147,6 +1147,34 @@ with tab2:
     st.markdown('<div style="position:fixed;top:0;left:0;right:0;bottom:0;pointer-events:none;z-index:0;background:radial-gradient(ellipse at 30% 0%, rgba(20,184,166,0.12) 0%, transparent 55%), radial-gradient(ellipse at 70% 90%, rgba(16,185,129,0.08) 0%, transparent 55%);"></div>', unsafe_allow_html=True)
     st.subheader(":material/analytics: Exploratory data analysis")
 
+    # ── Data Provenance ───────────────────────────────────────
+    st.markdown("""
+<div class="leakage-alert" style="border-left: 4px solid #F59E0B; background: rgba(245,158,11,0.08);">
+  <h3 style="color:#F59E0B; margin:0 0 10px 0;">⚠ Data Provenance: Three Signals of Synthetic Generation</h3>
+  <p style="color:#FFFFFF; margin:0 0 12px 0;">
+    Before drawing real-world conclusions, we checked three independent markers of synthetic data.
+    Any one would be notable; all three together constitute strong evidence.
+  </p>
+  <ol style="color:#B0BEC5; font-size:0.93rem; line-height:1.9; margin:0; padding-left:20px;">
+    <li><strong style="color:#F59E0B;">Zero missing values</strong> across all 150,000 rows —
+        implausible for real enterprise survey data at this scale.</li>
+    <li><strong style="color:#F59E0B;">Near-uniform country distribution</strong> —
+        chi-square test cannot reject perfect uniformity across all countries
+        (see VIF / Distribution Analysis below). Real global surveys follow population and GDP distributions.</li>
+    <li><strong style="color:#F59E0B;">'none' class: precision = recall = 1.00</strong> across all 3 models
+        (DT, RF, XGBoost) — three algorithms with different inductive biases all achieve zero misclassifications
+        on the same 1,559 samples. This indicates the class was generated with a disjoint feature distribution,
+        not derived from real labeling.</li>
+  </ol>
+  <p style="color:#94A3B8; font-size:0.85rem; margin:12px 0 0 0;">
+    <strong>Scope:</strong> All findings are valid for this modeled distribution.
+    They should not be treated as generalizable to real enterprise AI adoption data
+    without external validation on independently collected survey data.
+  </p>
+</div>
+""", unsafe_allow_html=True)
+    st.markdown(wave_divider("rgba(245,158,11,0.10)", "rgba(20,184,166,0.06)"), unsafe_allow_html=True)
+
     # ── Class imbalance ──────────────────────────────────────
     with st.container(border=True):
         st.markdown("**Class imbalance**")
@@ -1573,6 +1601,20 @@ Controlled via `learning_rate` and `max_depth`.
                 "Support":   [506, 1559, 23640, 19295, "—"],
             })
             st.dataframe(xgb_report, hide_index=True, use_container_width=True)
+            st.markdown("""
+<div class="finding-card" style="border-left: 4px solid #F59E0B; margin-top: 12px;">
+  <span class="finding-num" style="background:none; -webkit-text-fill-color:#F59E0B; color:#F59E0B;">⚠</span>
+  <strong style="color:#F59E0B;">'none' class precision = recall = 1.00: a synthetic data signal, not an achievement</strong><br>
+  <span style="color:#B0BEC5; font-size:0.9rem;">
+    All three models — a shallow Decision Tree, a 90-tree Random Forest, and a regularized 300-tree XGBoost —
+    produce <strong>zero misclassifications</strong> on all 1,559 'none'-class samples.
+    In real survey data, class boundaries overlap due to noisy labeling and genuine ambiguity between adjacent stages.
+    Perfect separation on a minority class (3.5%) across three different inductive biases indicates
+    the 'none' class was generated with a disjoint feature distribution — a synthetic data artefact.
+    Results for this class should not be cited as evidence of real-world separability.
+  </span>
+</div>
+""", unsafe_allow_html=True)
 
     # ── Permutation importance ────────────────────────────────
     st.markdown("#### Top 15 features by permutation importance (F1-macro)")
@@ -2247,6 +2289,30 @@ with tab5:
     st.markdown('<div style="position:fixed;top:0;left:0;right:0;bottom:0;pointer-events:none;z-index:0;background:radial-gradient(ellipse at 20% 0%, rgba(245,158,11,0.12) 0%, transparent 55%), radial-gradient(ellipse at 80% 90%, rgba(217,119,6,0.08) 0%, transparent 55%);"></div>', unsafe_allow_html=True)
     st.subheader(":material/lightbulb: Key findings & business recommendations")
 
+    # ── Limitations & Scope ──────────────────────────────────
+    st.markdown("""
+<div class="diagnostic-box" style="border-left: 4px solid #F59E0B; margin-bottom: 24px;">
+  <h4 style="color:#F59E0B; margin-top:0;">⚠ Limitations & Scope Constraints</h4>
+  <p style="color:#FFFFFF; font-size:0.97rem; line-height:1.8; margin:0 0 10px 0;">
+    The dataset exhibits three independent characteristics consistent with synthetic generation:
+    <strong>zero missing values</strong> across 150,000 rows,
+    <strong>near-uniform country distribution</strong> (chi-square cannot reject uniformity),
+    and <strong>perfect classification of the 'none' class</strong> (precision = recall = 1.00)
+    across all three models with different inductive biases.
+    All findings below are valid characterizations of this modeled distribution.
+    They should not be interpreted as empirically validated facts about real-world enterprise AI adoption
+    without external validation on independently collected data.
+  </p>
+  <p style="color:#94A3B8; font-size:0.85rem; margin:0;">
+    The three directly actionable levers — <code>ai_training_hours</code>,
+    <code>ai_budget_percentage</code>, and <code>years_using_ai</code> — do not share the
+    circularity of <code>ai_maturity_score</code> and represent independently observable,
+    manageable inputs.
+  </p>
+</div>
+""", unsafe_allow_html=True)
+    st.markdown(wave_divider("rgba(245,158,11,0.10)", "rgba(217,119,6,0.05)"), unsafe_allow_html=True)
+
     # ── Technical findings ───────────────────────────────────
     st.markdown("#### Technical findings")
 
@@ -2352,6 +2418,13 @@ with tab5:
                 st.markdown(f"**{icon}**")
             with right:
                 st.markdown(f"**{title}**  \n{detail}")
+
+    st.caption(
+        "**Scope note:** All recommendations are derived from a dataset with synthetic generation "
+        "characteristics (zero missing values, uniform country distribution, perfect 'none' class "
+        "separation). They represent modeled patterns, not empirically validated benchmarks. "
+        "Independent validation on real-world data is required before operational deployment."
+    )
 
     # ── Model as diagnostic tool ─────────────────────────────
     st.markdown(wave_divider("rgba(245,158,11,0.12)", "rgba(217,119,6,0.06)"), unsafe_allow_html=True)
@@ -4110,6 +4183,13 @@ with tab8:
   </ol>
 </div>
 """, unsafe_allow_html=True)
+
+    st.caption(
+        "**Scope note:** All recommendations are derived from a dataset with synthetic generation "
+        "characteristics (zero missing values, uniform country distribution, perfect 'none' class "
+        "separation). They represent modeled patterns, not empirically validated benchmarks. "
+        "Independent validation on real-world data is required before operational deployment."
+    )
 
     st.markdown(wave_divider("rgba(139,92,246,0.12)", "rgba(251,191,36,0.06)"), unsafe_allow_html=True)
 

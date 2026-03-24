@@ -1,0 +1,46 @@
+"Our model doesn't just classify where your company is — it tells you how to move forward, in what order, how much to commit, and when you're ready to scale."
+
+5 Actionable Manager Recommendations from the QF layer
+1. Don't skip stages — invest incrementally
+Source: Markov Chains
+
+The transition matrix shows that the probability of jumping directly from "none" to "full" is near zero. The highest transition rates are always one step at a time.
+
+Recommendation: Don't budget for full AI transformation upfront. Invest in reaching the next stage only. Nail "pilot" before committing to "partial" infrastructure. This avoids the most common failure mode — scaling before the foundation is solid.
+
+2. Sustained small investment beats one big bet
+Source: Survival Analysis (Cox hazard ratios)
+
+The Cox model identifies which features accelerate time-to-full adoption. years_using_ai and ai_budget_percentage consistently come out with the highest hazard ratios — meaning duration and consistency matter more than size of investment.
+
+Recommendation: Allocate a fixed % of budget to AI every year (the model says above 10%) rather than a large one-time project. Companies that committed early and consistently reach full adoption measurably faster than those who had one big push.
+
+3. Invest in training before technology
+Source: ML feature importance + Survival Analysis
+
+ai_training_hours is one of the few features a manager can directly control regardless of company size or industry. It also appears as a significant accelerator in the survival curves.
+
+Recommendation: Before buying new tools or platforms, invest in upskilling your existing team. A company with high training hours but average tools outperforms a company with premium tools and untrained staff.
+
+4. Don't scale until the model is confident you're ready
+Source: Conformal Prediction
+
+When the conformal prediction set for a company is {pilot, partial} — two stages — the model is genuinely uncertain. When it's a single label, it's confident.
+
+Recommendation: Use the live predictor as a readiness check. If your company profile returns two possible stages, you're in a grey zone — do not scale yet. Stabilise in your current stage first (reduce ai_failure_rate, increase ai_maturity_score) and re-assess next quarter. Scaling prematurely is the most expensive mistake.
+
+5. The cost of getting it wrong is asymmetric — protect the upside
+Source: Cost Matrix / EMV
+
+Overestimating your stage (thinking you're "partial" when you're "pilot") and scaling accordingly wastes money. But underestimating (thinking you're "pilot" when you're actually "partial") means missed competitive advantage. The cost matrix shows these are not equal mistakes.
+
+Recommendation: Invest in honest, quarterly self-assessment using the model. The risk of underinvesting when you're actually ready is 3-4× costlier than overinvesting too early, because competitors who correctly identify their "partial" stage will scale while you wait.
+
+One-slide summary for the presentation
+Question a manager asks	Answer from the model
+How much should I invest?	A consistent % every year (>10%) — sustained beats one-time
+Where should I start?	Training hours first — most controllable lever
+Can I skip ahead?	No — Markov transitions show one step at a time
+When am I ready to scale?	When the model returns a single-label prediction for your profile
+What if I get it wrong?	Underinvesting when ready costs more than moving too slowly
+This keeps every recommendation honest to what the project actually computed, and it gives a manager a clear decision framework — not just "AI is good, invest in it."
