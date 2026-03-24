@@ -1385,7 +1385,7 @@ A deliberate **5-model comparison** covers every ML2 technique and justifies com
     st.markdown("#### Model comparison")
     model_df = pd.DataFrame({
         "Model":            ["Decision Tree", "Random Forest", "XGBoost", "KNN", "Naive Bayes"],
-        "CV F1-macro":      [0.749, 0.768, 0.901, 0.718, "—"],
+        "CV F1-macro":      [0.749, 0.768, 0.901, 0.718, "0.714†"],
         "Test F1-macro":    [0.742, 0.763, 0.783, 0.722, 0.707],
         "Test accuracy":    [0.822, 0.833, 0.862, 0.840, 0.770],
         "Recall-macro":     [0.852, 0.880, 0.903, 0.692, 0.840],
@@ -1400,6 +1400,7 @@ A deliberate **5-model comparison** covers every ML2 technique and justifies com
 
     styled_df = model_df.style.apply(highlight_xgb, axis=1)
     st.dataframe(styled_df, hide_index=True, use_container_width=True)
+    st.caption("† Naive Bayes CV F1 is from a standalone 5-fold `cross_val_score` (no GridSearchCV — GaussianNB has no tunable hyperparameters).")
 
     # ── Interactive grouped bar chart ─────────────────────────
     st.markdown("#### Interactive metric comparison")
@@ -1407,7 +1408,7 @@ A deliberate **5-model comparison** covers every ML2 technique and justifies com
     highlight_metric = st.selectbox("Highlight metric", metric_opts, index=1)
 
     numeric_map = {
-        "CV F1-macro":     [0.749, 0.768, 0.901, 0.718, 0.700],
+        "CV F1-macro":     [0.749, 0.768, 0.901, 0.718, 0.714],
         "Test F1-macro":   [0.742, 0.763, 0.783, 0.722, 0.707],
         "Test accuracy":   [0.822, 0.833, 0.862, 0.840, 0.770],
         "Recall-macro":    [0.852, 0.880, 0.903, 0.692, 0.840],
