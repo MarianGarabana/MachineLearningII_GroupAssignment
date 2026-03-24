@@ -2501,7 +2501,7 @@ with tab7:
     The classifier tells you where a company sits on the AI adoption curve.
     These seven analyses answer the question every stakeholder asks next:
     what do I do with that information? One framework per business question,
-    from holding period estimates to budget defence to investment sizing.
+    from holding period estimates to budget defence/investment sizing.
   </p>
 </div>
 """, unsafe_allow_html=True)
@@ -2661,12 +2661,12 @@ with tab7:
 """, unsafe_allow_html=True)
 
     st.markdown(wave_divider("rgba(99,102,241,0.12)", "rgba(16,185,129,0.06)"), unsafe_allow_html=True)
-    st.markdown("### Seven Business Questions, Each With a Data-Backed Answer")
+    st.markdown("### Seven Business Questions, each with a data-backed answer")
 
     # ─────────────────────────────────────────────────────────
     # 7.1 — MARKOV TRANSITION MATRIX (Credit-Migration Style)
     # ─────────────────────────────────────────────────────────
-    with st.expander("7.1  How long until full adoption? | Trajectory Forecasting (Markov)", expanded=False, icon=":material/swap_horiz:"):
+    with st.expander("1.  How long until full adoption? - Trajectory Forecasting (Markov)", expanded=False, icon=":material/swap_horiz:"):
         st.markdown("""
 <div class="card" style="border-left: 4px solid #4CAF50; padding: 14px 18px; margin-bottom: 12px;">
   <strong style="color:#4CAF50;">Business question:</strong>
@@ -2843,7 +2843,7 @@ $P(\\Delta t) = e^{Q \\Delta t}$, enabling projection of adoption trajectories o
     # ─────────────────────────────────────────────────────────
     # 7.2 — COST-SENSITIVE LOSS & EXPECTED MONETARY VALUE
     # ─────────────────────────────────────────────────────────
-    with st.expander("7.2  What does a wrong prediction cost us? | Cost-Sensitive Model Selection", expanded=False, icon=":material/attach_money:"):
+    with st.expander("2.  What does a wrong prediction cost us? - Cost-Sensitive Model Selection", expanded=False, icon=":material/attach_money:"):
         st.markdown("""
 <div class="card" style="border-left: 4px solid #4CAF50; padding: 14px 18px; margin-bottom: 12px;">
   <strong style="color:#4CAF50;">Business question:</strong>
@@ -2956,7 +2956,7 @@ $$\\text{Expected Misclassification Cost} = \\sum_{i,j} C_{ij} \\cdot \\text{CM}
     # ─────────────────────────────────────────────────────────
     # 7.3 — MODEL CALIBRATION & PROBABILITY SCORING
     # ─────────────────────────────────────────────────────────
-    with st.expander("7.3  Can we trust the model's confidence scores? | Probability Calibration", expanded=False, icon=":material/tune:"):
+    with st.expander("3.  Can we trust the model's confidence scores? - Probability Calibration", expanded=False, icon=":material/tune:"):
         st.markdown("""
 <div class="card" style="border-left: 4px solid #4CAF50; padding: 14px 18px; margin-bottom: 12px;">
   <strong style="color:#4CAF50;">Business question:</strong>
@@ -3112,7 +3112,7 @@ Lower Brier = better. Perfect calibration → Brier = 0.
     # ─────────────────────────────────────────────────────────
     # 7.4 — PORTFOLIO CONSTRUCTION (Markowitz + Kelly)
     # ─────────────────────────────────────────────────────────
-    with st.expander("7.4  How should we size investments by adoption stage? | Portfolio Allocation", expanded=False, icon=":material/pie_chart:"):
+    with st.expander("4.  How should we size investments by adoption stage? - Portfolio Allocation", expanded=False, icon=":material/pie_chart:"):
         st.markdown("""
 <div class="card" style="border-left: 4px solid #4CAF50; padding: 14px 18px; margin-bottom: 12px;">
   <strong style="color:#4CAF50;">Business question:</strong>
@@ -3301,7 +3301,7 @@ $$\\mu_i = \\sum_k p_{ik} \\cdot r_k, \\quad \\sigma^2_p = \\mathbf{w}^T \\Sigma
     # ─────────────────────────────────────────────────────────
     # 7.5 — RISK METRICS (VaR, CVaR, Conformal Prediction)
     # ─────────────────────────────────────────────────────────
-    with st.expander("7.5  What is the worst-case model performance we must plan for? | Risk Bounds", expanded=False, icon=":material/shield:"):
+    with st.expander("5.  What is the worst-case model performance we must plan for? - Risk Bounds", expanded=False, icon=":material/shield:"):
         st.markdown("""
 <div class="card" style="border-left: 4px solid #4CAF50; padding: 14px 18px; margin-bottom: 12px;">
   <strong style="color:#4CAF50;">Business question:</strong>
@@ -3478,7 +3478,7 @@ $$\\text{VaR}_\\alpha = F^{-1}(\\alpha), \\quad \\text{CVaR}_\\alpha = E[L \\mid
     # ─────────────────────────────────────────────────────────
     # 7.6 — SURVIVAL ANALYSIS (Cox PH + Kaplan-Meier)
     # ─────────────────────────────────────────────────────────
-    with st.expander("7.6  Which sectors reach full adoption fastest, and when? | Survival Curves", expanded=False, icon=":material/timeline:"):
+    with st.expander("6.  Which sectors reach full adoption fastest, and when? - Survival Curves", expanded=False, icon=":material/timeline:"):
         st.markdown("""
 <div class="card" style="border-left: 4px solid #4CAF50; padding: 14px 18px; margin-bottom: 12px;">
   <strong style="color:#4CAF50;">Business question:</strong>
@@ -3646,7 +3646,7 @@ $$h(t \\mid X) = h_0(t) \\exp(X \\beta)$$
     # ─────────────────────────────────────────────────────────
     # 7.7 — BAYESIAN MODEL AVERAGING
     # ─────────────────────────────────────────────────────────
-    with st.expander("7.7  Should we trust one model or blend them all? | Ensemble & Model Risk", expanded=False, icon=":material/balance:"):
+    with st.expander("7.  Should we trust one model or blend them all? - Ensemble & Model Risk", expanded=False, icon=":material/balance:"):
         st.markdown("""
 <div class="card" style="border-left: 4px solid #4CAF50; padding: 14px 18px; margin-bottom: 12px;">
   <strong style="color:#4CAF50;">Business question:</strong>
