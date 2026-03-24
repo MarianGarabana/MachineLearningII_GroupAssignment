@@ -2531,7 +2531,17 @@ with tab6:
                         fig_radar.add_trace(go.Scatterpolar(r=lag_vals + [lag_vals[0]], theta=categories + [categories[0]], fill='toself', name='Predicted AI Laggards', line=dict(color=RED, width=3), fillcolor='rgba(239, 83, 80, 0.3)'))
                         
                         fig_radar = dark_fig(fig_radar)
-                        fig_radar.update_layout(polar=dict(radialaxis=dict(visible=True, showticklabels=False), bgcolor='rgba(0,0,0,0)'), title="Operational Performance Profile (Live XGBoost Inference)", height=450, legend=dict(orientation="h", yanchor="bottom", y=1.05))
+                        fig_radar.update_layout(
+                            polar=dict(
+                                radialaxis=dict(visible=True, showticklabels=False),
+                                angularaxis=dict(tickfont=dict(size=14, color='#e2e8f0')),
+                                bgcolor='rgba(0,0,0,0)',
+                            ),
+                            title=dict(text="Operational Performance Profile", font=dict(size=18), y=0.98),
+                            height=550,
+                            legend=dict(orientation="h", yanchor="top", y=-0.05, font=dict(size=13)),
+                            margin=dict(t=60, b=60, l=80, r=80),
+                        )
                         st.plotly_chart(fig_radar, use_container_width=True)
                     else:
                         st.warning("Simulation yielded cohorts too small to compare.")
