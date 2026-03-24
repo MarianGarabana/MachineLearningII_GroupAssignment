@@ -829,13 +829,13 @@ if missing_files:
 <hr style="border-color:#2E75B6;">
 <b>Files expected in this directory:</b>
 <ul style="color:#B0BEC5; font-size:0.9rem;">
-<li><code>final_xgb.pkl</code> — trained XGBoost classifier</li>
-<li><code>final_rf.pkl</code> — trained Random Forest classifier</li>
-<li><code>tree_cv.pkl</code> — Decision Tree GridSearchCV object</li>
-<li><code>cvRF.pkl</code> — RF GridSearchCV object</li>
-<li><code>cv_xgb.pkl</code> — XGBoost GridSearchCV object</li>
-<li><code>preprocessor.pkl</code> — fitted ColumnTransformer (save with <code>joblib.dump(preprocessor, 'preprocessor.pkl')</code>)</li>
-<li><code>df_perm.csv</code> — permutation importance DataFrame (columns: feature, importance_mean, importance_std)</li>
+<li><code>final_xgb.pkl</code>: trained XGBoost classifier</li>
+<li><code>final_rf.pkl</code>: trained Random Forest classifier</li>
+<li><code>tree_cv.pkl</code>: Decision Tree GridSearchCV object</li>
+<li><code>cvRF.pkl</code>: RF GridSearchCV object</li>
+<li><code>cv_xgb.pkl</code>: XGBoost GridSearchCV object</li>
+<li><code>preprocessor.pkl</code>: fitted ColumnTransformer (save with <code>joblib.dump(preprocessor, 'preprocessor.pkl')</code>)</li>
+<li><code>df_perm.csv</code>: permutation importance DataFrame (columns: feature, importance_mean, importance_std)</li>
 </ul>
 </div>
 """, unsafe_allow_html=True)
@@ -874,7 +874,7 @@ tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8 = st.tabs([
     "🔮 Live Predictor",
     "💡 Findings & Recommendations",
     "📈 PE / VC Operational Alpha",
-    "🏦 Quant Finance & Strategy",
+    "🎯 Decision Analytics",
     "📋 Executive Summary"
 ])
 
@@ -1036,7 +1036,7 @@ with tab1:
             st.subheader(":material/description: Project summary")
             st.markdown("""
 **Business problem**
-Predict a company's current AI adoption stage — *none / pilot / partial / full* — from its
+Predict a company's current AI adoption stage (*none / pilot / partial / full*) from its
 operational and financial metrics, enabling consultants to deliver instant, data-driven
 diagnostics instead of lengthy manual assessments.
 
@@ -1047,7 +1047,7 @@ diagnostics instead of lengthy manual assessments.
 
 **Metric chosen: F1-macro**
 Accuracy is misleading when classes are severely imbalanced. F1-macro gives equal weight
-to every class regardless of size — critical here because *full* adopters represent only 1.1 % of records.
+to every class regardless of size; critical here because *full* adopters represent only 1.1 % of records.
 """)
 
     with col_right:
@@ -1074,7 +1074,7 @@ to every class regardless of size — critical here because *full* adopters repr
             st.plotly_chart(donut, use_container_width=True)
             st.info(
                 "**Severe class imbalance:** *partial* dominates at 52.5 %. "
-                "A naive classifier always predicting 'partial' scores 52.5 % accuracy — "
+                "A naive classifier always predicting 'partial' scores 52.5 % accuracy, "
                 "so we optimise F1-macro instead.",
                 icon=":material/warning:",
             )
@@ -1183,8 +1183,8 @@ with tab2:
 <div class="leakage-alert">
   <h3 style="color:#EF5350; margin:0 0 10px 0;">🚨 Critical finding: data leakage detected &amp; fixed</h3>
   <p style="color:#FFFFFF; margin:0 0 10px 0;">
-    The feature <code>ai_adoption_rate</code> was a <strong>direct numerical encoding of the target variable</strong>
-    — non-overlapping ranges mapped perfectly onto each class.
+    The feature <code>ai_adoption_rate</code> was a <strong>direct numerical encoding of the target variable</strong>.
+    Non-overlapping ranges mapped perfectly onto each class.
     Including it produced a fake 100 % F1-macro. After removal, honest performance dropped to 74.6 %.
   </p>
 </div>
@@ -1241,13 +1241,13 @@ with tab2:
 **Preprocessing pipeline (applied after stratified split to prevent any leakage):**
 - Numeric: **median imputation** for missing values
 - Categorical: **mode imputation** then **one-hot encoding** (drop first)
-- Stratified 70/30 split applied *before* any fitting — preprocessor fitted on train only
+- Stratified 70/30 split applied *before* any fitting; preprocessor fitted on train only
 """)
 
     # ── Train/test split ─────────────────────────────────────
     st.markdown(wave_divider("rgba(20,184,166,0.10)", "rgba(16,185,129,0.05)"), unsafe_allow_html=True)
     with st.container(border=True):
-        st.markdown("**Train / test split — stratification check**")
+        st.markdown("**Train / test split: stratification check**")
         split_df = pd.DataFrame({
             "Split":   ["Train (105,000)", "Test (45,000)"],
             "None %":  [3.47, 3.47],
@@ -1257,7 +1257,7 @@ with tab2:
         })
         st.dataframe(split_df, hide_index=True, use_container_width=True)
         st.caption(
-            "Stratified split preserves class proportions exactly — both sets have identical "
+            "Stratified split preserves class proportions exactly. Both sets have identical "
             "class percentages, confirming no sampling bias."
         )
 
@@ -1383,7 +1383,7 @@ due to multicollinearity. VIF > 10 indicates severe multicollinearity; VIF > 5 w
             n_moderate = len(vif_df[(vif_df['VIF'] > 5) & (vif_df['VIF'] <= 10)])
             st.markdown(f"""
 **Summary:** {n_severe} features with VIF > 10 (severe), {n_moderate} with VIF 5–10 (moderate).
-Tree-based models (RF, XGBoost) are inherently robust to multicollinearity — they select splits independently —
+Tree-based models (RF, XGBoost) are inherently robust to multicollinearity (they select splits independently),
 so we retain all features. However, this analysis confirms that **linear models would require feature elimination**
 for this dataset.
 """)
@@ -1455,7 +1455,7 @@ A deliberate **5-model comparison** covers every ML2 technique and justifies com
 
     styled_df = model_df.style.apply(highlight_xgb, axis=1)
     st.dataframe(styled_df, hide_index=True, use_container_width=True)
-    st.caption("† Naive Bayes CV F1 is from a standalone 5-fold `cross_val_score` (no GridSearchCV — GaussianNB has no tunable hyperparameters).")
+    st.caption("† Naive Bayes CV F1 is from a standalone 5-fold `cross_val_score` (no GridSearchCV; GaussianNB has no tunable hyperparameters).")
 
     # ── Interactive grouped bar chart ─────────────────────────
     st.markdown("#### Interactive metric comparison")
@@ -1527,12 +1527,12 @@ Pruning via GridSearch reduces the gap meaningfully.
 **Best params**
 - `max_depth = 9`, `max_features = 'sqrt'`, `min_samples_leaf = 10`
 - Optimal trees: **90** (OOB curve plateau)
-- `class_weight = 'balanced_subsample'` — recomputes weights per bootstrap sample (better than `'balanced'` for RF)
+- `class_weight = 'balanced_subsample'`: recomputes weights per bootstrap sample (better than `'balanced'` for RF)
 - OOB validation → no separate validation set needed (free from bootstrap)
 
 **Feature reduction experiment:**
 Top-15 features → F1 drops from **0.763 to 0.639** (12 pp drop).
-Signal is broadly distributed — no small subset captures the full picture.
+Signal is broadly distributed; no small subset captures the full picture.
 
 **Cutoff optimisation:**
 OOB probabilities → optimal threshold **0.79** for *full* class.
@@ -1556,11 +1556,11 @@ Precision: 0.24 → **0.45** · Overall F1-macro → 0.80.
 - `max_depth = 5`, `min_child_weight = 50`, `subsample = 1.0`
 - `learning_rate = 0.05` (lambda shrinkage), **300 trees**
 
-**CV F1-macro: 0.901** — highest of all five models
-**Overfitting gap: 1.61 %** — consistent and robust
+**CV F1-macro: 0.901** (highest of all five models)
+**Overfitting gap: 1.61 %** (consistent and robust)
 
 **Key distinction from RF:**
-Sequential (not parallel) — more trees *can* cause overfitting unlike RF.
+Sequential (not parallel): more trees *can* cause overfitting unlike RF.
 Controlled via `learning_rate` and `max_depth`.
 """)
             st.success("Best overall model. Highest CV and test F1-macro with minimal overfitting.", icon=":material/trophy:")
@@ -1575,7 +1575,7 @@ Controlled via `learning_rate` and `max_depth`.
             st.dataframe(xgb_report, hide_index=True, use_container_width=True)
 
     # ── Permutation importance ────────────────────────────────
-    st.markdown("#### Top 15 features — permutation importance (F1-macro)")
+    st.markdown("#### Top 15 features by permutation importance (F1-macro)")
 
     if df_perm is not None:
         top15 = df_perm.nlargest(15, "importance_mean").sort_values("importance_mean")
@@ -1593,7 +1593,7 @@ Controlled via `learning_rate` and `max_depth`.
         )
         st.plotly_chart(perm_fig, use_container_width=True)
         st.caption(
-            "Permutation importance is more reliable than impurity-based importance for correlated features — "
+            "Permutation importance is more reliable than impurity-based importance for correlated features; "
             "it measures actual prediction degradation when each feature is shuffled."
         )
     else:
@@ -1604,7 +1604,7 @@ Controlled via `learning_rate` and `max_depth`.
         st.markdown("""
 KNN classifies by majority vote of the **k closest training examples** in feature space.
 Unlike tree-based models, it is sensitive to feature scaling and suffers from the
-**curse of dimensionality** — performance degrades as the number of features grows.
+**curse of dimensionality**: performance degrades as the number of features grows.
 """)
         knn_col1, knn_col2 = st.columns([1, 1.5], gap="large")
         with knn_col1:
@@ -1616,7 +1616,7 @@ Unlike tree-based models, it is sensitive to feature scaling and suffers from th
 **CV F1-macro: 0.718 · Test F1-macro: 0.722**
 
 **Why KNN underperforms on F1 but has high precision (0.839):**
-KNN is conservative — it predicts the majority class well but struggles
+KNN is conservative; it predicts the majority class well but struggles
 with the rare `full` class (F1=0.29). With 73 features, distance metrics
 weaken (curse of dimensionality). Overfitting gap ~5pp (train 0.772 vs test 0.722).
 """)
@@ -1641,16 +1641,16 @@ that our VIF analysis (Section 2.8) shows is clearly violated.
         nb_col1, nb_col2 = st.columns([1, 1.5], gap="large")
         with nb_col1:
             st.markdown("""
-**No hyperparameters to tune** — GaussianNB has no meaningful tuning knobs.
+**No hyperparameters to tune.** GaussianNB has no meaningful tuning knobs.
 
 **Test F1-macro: 0.707 · Test accuracy: 0.770**
 
 **Surprisingly competitive on recall (0.840) but weak on precision (0.694):**
-1. **Independence assumption violated** — VIF shows features like `ai_projects_active`,
+1. **Independence assumption violated**: VIF shows features like `ai_projects_active`,
    `ai_training_hours`, and `ai_budget_percentage` have VIF > 30,000
-2. **NB over-predicts the `full` class** — recall 0.84 but precision only 0.17,
+2. **NB over-predicts the `full` class**: recall 0.84 but precision only 0.17,
    meaning it catches most `full` companies but generates many false positives
-3. **Zero overfitting** (train F1 = test F1 = 0.707) — the model is too simple to overfit
+3. **Zero overfitting** (train F1 = test F1 = 0.707): the model is too simple to overfit
 """)
         with nb_col2:
             st.markdown("""
@@ -1663,7 +1663,7 @@ that our VIF analysis (Section 2.8) shows is clearly violated.
 | **macro avg** | **0.69** | **0.84** | **0.71** | — |
 """)
         st.info(
-            "**Key takeaway:** Despite violating every assumption, NB achieves F1=0.71 — only 7 points below XGBoost (0.78). "
+            "**Key takeaway:** Despite violating every assumption, NB achieves F1=0.71, only 7 points below XGBoost (0.78). "
             "However, NB's high recall / low precision trade-off makes it unsuitable for deployment: it over-predicts `full` adoption. "
             "Tree-based ensembles provide the balanced precision-recall profile needed for business decisions.",
             icon=":material/lightbulb:",
@@ -1673,7 +1673,7 @@ that our VIF analysis (Section 2.8) shows is clearly violated.
     with st.expander("ROC / AUC Curves (One-vs-Rest)", icon=":material/show_chart:"):
         st.markdown("""
 The **Receiver Operating Characteristic** curve plots True Positive Rate vs False Positive Rate at
-all classification thresholds. AUC summarises discriminative power — 1.0 = perfect, 0.5 = random.
+all classification thresholds. AUC summarises discriminative power (1.0 = perfect, 0.5 = random).
 We compute One-vs-Rest ROC for each class using XGBoost predicted probabilities.
 """)
 
@@ -1739,7 +1739,7 @@ We compute One-vs-Rest ROC for each class using XGBoost predicted probabilities.
                 for s, d in roc_data.items()
             ])
             st.dataframe(auc_df, hide_index=True, use_container_width=True)
-            st.caption("AUC close to 1.0 for all classes confirms the model has strong discriminative power — not just on the majority classes.")
+            st.caption("AUC close to 1.0 for all classes confirms the model has strong discriminative power, not just on the majority classes.")
         else:
             st.info("Could not compute ROC curves. Ensure the raw dataset is available.")
 
@@ -1747,7 +1747,7 @@ We compute One-vs-Rest ROC for each class using XGBoost predicted probabilities.
     with st.expander("Cross-Validation Stability (Per-Fold F1)", icon=":material/assessment:"):
         st.markdown("""
 Beyond mean CV F1-macro, we examine **per-fold variability**. High variance across folds indicates
-the model's performance is sensitive to the specific data split — a risk for production deployment.
+the model's performance is sensitive to the specific data split, which is a risk for production deployment.
 """)
 
         cv_folds_data = {
@@ -1779,10 +1779,10 @@ the model's performance is sensitive to the specific data split — a risk for p
             for name, d in cv_folds_data.items()
         ])
         st.dataframe(cv_summary, hide_index=True, use_container_width=True)
-        st.caption("XGBoost shows the tightest fold distribution (lowest std) — confirming it is the most **stable** model, not just the most accurate.")
+        st.caption("XGBoost shows the tightest fold distribution (lowest std), confirming it is the most **stable** model, not just the most accurate.")
 
     # ── Statistical Significance (McNemar Test) ───────────────
-    with st.expander("Statistical Significance — McNemar's Test", icon=":material/science:"):
+    with st.expander("Statistical Significance: McNemar's Test", icon=":material/science:"):
         st.markdown("""
 **McNemar's test** (1947) determines whether two classifiers make significantly different errors on the
 same test set. Unlike comparing averages, it tests whether the *specific* samples each model gets
@@ -1896,19 +1896,19 @@ with tab4:
             st.caption("The 6 features with highest permutation importance across all models.")
 
             ai_maturity_score    = st.slider("AI maturity score", 0.0, 1.0, 0.35, 0.01,
-                                             help="#1 predictor — composite measure of AI capability maturity")
+                                             help="#1 predictor: composite measure of AI capability maturity")
             years_using_ai       = st.slider("Years using AI", 0, 20, 3, 1,
-                                             help="#2 predictor — sustained early investment drives progression")
+                                             help="#2 predictor: sustained early investment drives progression")
             ai_budget_percentage = st.slider("AI budget (% of revenue)", 0.0, 30.0, 5.0, 0.1,
-                                             help="#3 predictor — long-term commitment signal")
+                                             help="#3 predictor: long-term commitment signal")
             ai_training_hours    = st.slider("AI training hours per year", 0.0, 500.0, 40.0, 1.0,
-                                             help="#4 predictor — directly controllable lever")
+                                             help="#4 predictor: directly controllable lever")
             ai_failure_rate      = st.slider("AI failure rate", 0.0, 1.0, 0.3, 0.01,
-                                             help="#5 predictor — lower = better governance")
+                                             help="#5 predictor: lower = better governance")
             industry             = st.selectbox("Industry", [
                 "Technology", "Finance", "Healthcare", "Education",
                 "Retail", "Manufacturing", "Energy", "Other",
-            ], help="Sector — Technology and Finance progress fastest")
+            ], help="Sector: Technology and Finance progress fastest")
 
         # ── All other features hardcoded to sensible defaults ──
         num_employees               = 500
@@ -2253,7 +2253,7 @@ with tab5:
     findings = [
         (
             "1",
-            "AI maturity score — the dominant predictor",
+            "AI maturity score: the dominant predictor",
             "`ai_maturity_score` is the single strongest predictor across all 5 models and both "
             "importance methods (impurity-based and permutation). This is a consistent finding "
             "regardless of algorithm choice.",
@@ -2262,7 +2262,7 @@ with tab5:
             "2",
             "Sustained early investment drives progression",
             "`years_using_ai` and `ai_budget_percentage` confirm that sustained early investment "
-            "is the primary driver of adoption progression — companies that committed early and maintained "
+            "is the primary driver of adoption progression. Companies that committed early and maintained "
             "budget allocation consistently reach higher stages.",
         ),
         (
@@ -2274,9 +2274,9 @@ with tab5:
         ),
         (
             "4",
-            "Signal is broadly distributed — no magic subset",
+            "Signal is broadly distributed: no magic subset",
             "Reducing to top-15 features caused a **12 pp F1-macro drop** (0.763 → 0.639). "
-            "No small subset captures the full picture — the model needs the breadth of all 101 features "
+            "No small subset captures the full picture. The model needs the breadth of all 101 features "
             "to perform well.",
         ),
         (
@@ -2334,15 +2334,15 @@ with tab5:
 
     manager_recs = [
         (":material/trending_up:", "Prioritise ai_maturity_score as the primary quarterly KPI",
-         "The single strongest predictor across all models — track it quarterly and set progression targets."),
+         "The single strongest predictor across all models. Track it quarterly and set progression targets."),
         (":material/school:", "Invest in ai_training_hours",
          "One of the few directly controllable levers regardless of company size or industry."),
         (":material/payments:", "Maintain ai_budget_percentage above 10 %",
          "Sustained budget allocation signals long-term commitment and is a consistent driver of stage progression."),
         (":material/apartment:", "Prioritise Technology and Finance verticals",
-         "These sectors progress fastest — talent retention and AI investment here yields the highest return."),
+         "These sectors progress fastest, so talent retention and AI investment here yields the highest return."),
         (":material/public:", "Adjust intervention strategies by region",
-         "Geography and market maturity significantly influence adoption pace — one-size-fits-all approaches underperform."),
+         "Geography and market maturity significantly influence adoption pace. One-size-fits-all approaches underperform."),
     ]
 
     for icon, title, detail in manager_recs:
@@ -2360,7 +2360,7 @@ with tab5:
   <h3 style="color:#4FC3F7; margin-top:0;">Model as a diagnostic tool</h3>
   <p style="color:#FFFFFF; font-size:1.0rem; margin:0;">
     This model <strong>replaces lengthy manual consultancy assessments</strong>. Given any company's
-    operational metrics, it outputs the current AI adoption stage and — via SHAP values — identifies the
+    operational metrics, it outputs the current AI adoption stage and, via SHAP values, identifies the
     <strong>specific bottleneck blocking progression to the next stage</strong>. A consultant can assess
     any company profile in under 60 seconds.
   </p>
@@ -2487,20 +2487,21 @@ with tab7:
        border-radius:100px; margin-bottom:18px; font-size:0.85rem; color:#818CF8;
        font-weight:600; letter-spacing:0.1em; text-transform:uppercase;">
     <span style="width:6px;height:6px;border-radius:50%;background:#818CF8;"></span>
-    Advanced Analytics &nbsp;&middot;&nbsp; 7 Financial Frameworks
+    Decision Layer &nbsp;&middot;&nbsp; 7 Business Questions Answered
   </div>
 
   <h1 style="font-size:2.8rem; font-weight:900; margin:0; line-height:1.1; letter-spacing:-0.03em;">
-    Quantitative Finance<br>
+    From Prediction<br>
     <span style="background:linear-gradient(135deg, #818CF8 0%, #4FC3F7 50%, #10B981 100%);
          -webkit-background-clip:text; -webkit-text-fill-color:transparent;">
-    & Business Strategy</span>
+    to Decision</span>
   </h1>
 
   <p style="color:#b0bec5; font-size:1.05rem; margin-top:14px; max-width:700px; line-height:1.7;">
-    Bridging the gap between machine learning classification and real-world financial
-    decision-making. Seven Nobel-calibre frameworks transform model predictions into
-    actionable investment signals, risk-adjusted strategies, and time-aware forecasts.
+    The classifier tells you where a company sits on the AI adoption curve.
+    These seven analyses answer the question every stakeholder asks next:
+    what do I do with that information? One framework per business question,
+    from holding period estimates to budget defence to investment sizing.
   </p>
 </div>
 """, unsafe_allow_html=True)
@@ -2513,9 +2514,9 @@ with tab7:
     <div style="position:absolute;top:0;left:0;right:0;height:2px;
          background:linear-gradient(90deg,#818CF8,#6366F1);"></div>
     <div style="font-size:0.82rem; color:#818CF8; text-transform:uppercase;
-         letter-spacing:0.12em; font-weight:600; margin-bottom:8px;">Frameworks</div>
+         letter-spacing:0.12em; font-weight:600; margin-bottom:8px;">Questions</div>
     <div style="font-size:2.2rem; font-weight:900; color:#fff;">7</div>
-    <div style="font-size:0.82rem; color:#475569; margin-top:4px;">Nobel-calibre theory</div>
+    <div style="font-size:0.82rem; color:#475569; margin-top:4px;">One per business decision</div>
   </div>
   <div style="background:rgba(15,23,42,0.5); border:1px solid rgba(255,255,255,0.06);
        border-radius:14px; padding:20px; text-align:center; position:relative; overflow:hidden;">
@@ -2660,16 +2661,16 @@ with tab7:
 """, unsafe_allow_html=True)
 
     st.markdown(wave_divider("rgba(99,102,241,0.12)", "rgba(16,185,129,0.06)"), unsafe_allow_html=True)
-    st.markdown("### Deep-Dive Analyses")
+    st.markdown("### Seven Business Questions, Each With a Data-Backed Answer")
 
     # ─────────────────────────────────────────────────────────
     # 7.1 — MARKOV TRANSITION MATRIX (Credit-Migration Style)
     # ─────────────────────────────────────────────────────────
-    with st.expander("7.1  Markov Transition Matrix — Credit-Migration Framework", expanded=False, icon=":material/swap_horiz:"):
+    with st.expander("7.1  How long until full adoption? | Trajectory Forecasting (Markov)", expanded=False, icon=":material/swap_horiz:"):
         st.markdown("""
 <div class="card" style="border-left: 4px solid #4CAF50; padding: 14px 18px; margin-bottom: 12px;">
   <strong style="color:#4CAF50;">Business question:</strong>
-  <em>"If a company is currently at the pilot stage, how long until it reaches full adoption — and what's the probability it regresses back to none?"</em><br>
+  <em>"If a company is currently at the pilot stage, how long until it reaches full adoption, and what's the probability it regresses back to none?"</em><br>
   <span style="color:#cbd5e1; font-size:0.85rem;">
     <strong>PE Fund:</strong> Estimate holding periods for portfolio companies &nbsp;|&nbsp;
     <strong>Consultant:</strong> Set realistic client transformation timelines &nbsp;|&nbsp;
@@ -2764,10 +2765,10 @@ $P(\\Delta t) = e^{Q \\Delta t}$, enabling projection of adoption trajectories o
             })
             st.dataframe(et_df, hide_index=True, use_container_width=True)
         except np.linalg.LinAlgError:
-            st.warning("Generator matrix is singular — expected times cannot be computed.")
+            st.warning("Generator matrix is singular; expected times cannot be computed.")
 
         # Sankey diagram — adoption flow visualization
-        st.markdown("**Adoption Flow — Sankey Diagram (One-Quarter Transitions)**")
+        st.markdown("**Adoption Flow: Sankey Diagram (One-Quarter Transitions)**")
         sankey_labels = ['None (from)', 'Pilot (from)', 'Partial (from)', 'Full (from)',
                          'None (to)', 'Pilot (to)', 'Partial (to)', 'Full (to)']
         sankey_colors = [RED, WARNING, ACCENT, SUCCESS, RED, WARNING, ACCENT, SUCCESS]
@@ -2831,7 +2832,7 @@ $P(\\Delta t) = e^{Q \\Delta t}$, enabling projection of adoption trajectories o
         st.markdown("""
 <div class="finding-card">
   <span class="finding-num">Insight</span>
-  The transition matrix reveals <strong>state stickiness</strong> — most companies remain in their current adoption
+  The transition matrix reveals <strong>state stickiness</strong>: most companies remain in their current adoption
   stage quarter-over-quarter, just as most credit ratings are stable. The absorption curve shows that
   <strong>pilot-stage companies take significantly longer to reach full adoption than partial-stage ones</strong>,
   giving PE funds a data-backed holding period estimate. A <strong>CSO</strong> can use this to tell the board:
@@ -2842,7 +2843,7 @@ $P(\\Delta t) = e^{Q \\Delta t}$, enabling projection of adoption trajectories o
     # ─────────────────────────────────────────────────────────
     # 7.2 — COST-SENSITIVE LOSS & EXPECTED MONETARY VALUE
     # ─────────────────────────────────────────────────────────
-    with st.expander("7.2  Cost-Sensitive Loss & Expected Monetary Value (EMV)", expanded=False, icon=":material/attach_money:"):
+    with st.expander("7.2  What does a wrong prediction cost us? | Cost-Sensitive Model Selection", expanded=False, icon=":material/attach_money:"):
         st.markdown("""
 <div class="card" style="border-left: 4px solid #4CAF50; padding: 14px 18px; margin-bottom: 12px;">
   <strong style="color:#4CAF50;">Business question:</strong>
@@ -2946,16 +2947,16 @@ $$\\text{Expected Misclassification Cost} = \\sum_{i,j} C_{ij} \\cdot \\text{CM}
   Under the asymmetric cost matrix, the <strong>optimal model may differ</strong> from the F1-macro winner.
   Misclassifying a "full" adopter as "none" (missed opportunity) costs <strong>10× more ($100k)</strong> than
   the reverse ($10k minor reallocation). <strong>Practical takeaway:</strong><br>
-  • <strong>PE Fund:</strong> Deploy the lowest-EMC model for deal screening — an extra 1% accuracy is worthless if it misses $100k opportunities<br>
-  • <strong>Consultant:</strong> Use EMC to justify model selection to clients — "we chose XGBoost because it minimises your expected cost of wrong advice"<br>
-  • <strong>CSO:</strong> EMC quantifies the dollar risk of trusting the model — present this to the board alongside F1
+  • <strong>PE Fund:</strong> Deploy the lowest-EMC model for deal screening; an extra 1% accuracy is worthless if it misses $100k opportunities<br>
+  • <strong>Consultant:</strong> Use EMC to justify model selection to clients: "we chose XGBoost because it minimises your expected cost of wrong advice"<br>
+  • <strong>CSO:</strong> EMC quantifies the dollar risk of trusting the model; present this to the board alongside F1
 </div>
 """, unsafe_allow_html=True)
 
     # ─────────────────────────────────────────────────────────
     # 7.3 — MODEL CALIBRATION & PROBABILITY SCORING
     # ─────────────────────────────────────────────────────────
-    with st.expander("7.3  Model Calibration & Brier Score Decomposition", expanded=False, icon=":material/tune:"):
+    with st.expander("7.3  Can we trust the model's confidence scores? | Probability Calibration", expanded=False, icon=":material/tune:"):
         st.markdown("""
 <div class="card" style="border-left: 4px solid #4CAF50; padding: 14px 18px; margin-bottom: 12px;">
   <strong style="color:#4CAF50;">Business question:</strong>
@@ -3062,9 +3063,9 @@ $$\\text{Brier}_{\\text{multi}} = \\frac{1}{N} \\sum_{i=1}^{N} \\sum_{k=1}^{K} (
 
             st.markdown("""
 **Brier Score Decomposition:**
-- **Reliability** — how close predicted probabilities are to observed frequencies
-- **Resolution** — how much predictions vary from the base rate
-- **Uncertainty** — inherent class entropy (irreducible)
+- **Reliability**: how close predicted probabilities are to observed frequencies
+- **Resolution**: how much predictions vary from the base rate
+- **Uncertainty**: inherent class entropy (irreducible)
 
 Lower Brier = better. Perfect calibration → Brier = 0.
 """)
@@ -3103,7 +3104,7 @@ Lower Brier = better. Perfect calibration → Brier = 0.
   the cost-sensitive analysis (7.2), portfolio weights (7.4), and Kelly bet sizing all <strong>require</strong>
   trustworthy $P(\\text{stage})$. Without calibration, a PE fund might size a $50M investment based on
   a "90% confidence" that is actually only 60% reliable. <strong>Practical rule:</strong> never deploy a model
-  for capital allocation without first checking its reliability diagram — this is standard practice at
+  for capital allocation without first checking its reliability diagram; this is standard practice at
   every quantitative trading desk (Renaissance, Two Sigma, Citadel).
 </div>
 """, unsafe_allow_html=True)
@@ -3111,7 +3112,7 @@ Lower Brier = better. Perfect calibration → Brier = 0.
     # ─────────────────────────────────────────────────────────
     # 7.4 — PORTFOLIO CONSTRUCTION (Markowitz + Kelly)
     # ─────────────────────────────────────────────────────────
-    with st.expander("7.4  Portfolio Construction — Markowitz Mean-Variance & Kelly Criterion", expanded=False, icon=":material/pie_chart:"):
+    with st.expander("7.4  How should we size investments by adoption stage? | Portfolio Allocation", expanded=False, icon=":material/pie_chart:"):
         st.markdown("""
 <div class="card" style="border-left: 4px solid #4CAF50; padding: 14px 18px; margin-bottom: 12px;">
   <strong style="color:#4CAF50;">Business question:</strong>
@@ -3267,7 +3268,7 @@ $$\\mu_i = \\sum_k p_{ik} \\cdot r_k, \\quad \\sigma^2_p = \\mathbf{w}^T \\Sigma
             st.plotly_chart(fig_ef, use_container_width=True)
 
         with col_kelly:
-            st.markdown("**Kelly Criterion — Optimal Bet Sizing (Full Adoption Signal)**")
+            st.markdown("**Kelly Criterion: Optimal Bet Sizing (Full Adoption Signal)**")
             fig_kelly = go.Figure(data=go.Histogram(
                 x=kelly_frac[kelly_frac > 0], nbinsx=40,
                 marker_color=SUCCESS, opacity=0.7,
@@ -3290,7 +3291,7 @@ $$\\mu_i = \\sum_k p_{ik} \\cdot r_k, \\quad \\sigma^2_p = \\mathbf{w}^T \\Sigma
   The efficient frontier shows the <strong>optimal tradeoff between diversification and concentration</strong>.
   The tangency portfolio (maximum Sharpe ratio) identifies the <strong>ideal mix of companies</strong> to target.
   The Kelly criterion answers a more direct question: <strong>"For any single company, what fraction of my
-  budget should I bet?"</strong> — companies with Kelly $f^* > 0.15$ are high-conviction targets.<br><br>
+  budget should I bet?"</strong>; companies with Kelly $f^* > 0.15$ are high-conviction targets.<br><br>
   <strong>In practice:</strong> A PE fund with $500M AUM uses the efficient frontier to decide how many targets
   to pursue. A consulting firm uses Kelly to decide which proposals to staff with senior vs junior teams.
   A CSO uses the scatter plot to benchmark their company against the market.
@@ -3300,7 +3301,7 @@ $$\\mu_i = \\sum_k p_{ik} \\cdot r_k, \\quad \\sigma^2_p = \\mathbf{w}^T \\Sigma
     # ─────────────────────────────────────────────────────────
     # 7.5 — RISK METRICS (VaR, CVaR, Conformal Prediction)
     # ─────────────────────────────────────────────────────────
-    with st.expander("7.5  Risk Metrics — VaR, CVaR & Conformal Prediction", expanded=False, icon=":material/shield:"):
+    with st.expander("7.5  What is the worst-case model performance we must plan for? | Risk Bounds", expanded=False, icon=":material/shield:"):
         st.markdown("""
 <div class="card" style="border-left: 4px solid #4CAF50; padding: 14px 18px; margin-bottom: 12px;">
   <strong style="color:#4CAF50;">Business question:</strong>
@@ -3314,7 +3315,7 @@ $$\\mu_i = \\sum_k p_{ik} \\cdot r_k, \\quad \\sigma^2_p = \\mathbf{w}^T \\Sigma
 """, unsafe_allow_html=True)
         st.markdown("""
 **Theoretical Foundation:** We quantify **model risk** using Value-at-Risk (VaR) and Conditional VaR (CVaR/Expected
-Shortfall) — the standard risk measures from **Artzner et al. (1999)**. Additionally, **conformal prediction**
+Shortfall), the standard risk measures from **Artzner et al. (1999)**. Additionally, **conformal prediction**
 (Vovk et al., 2005) provides distribution-free prediction sets with guaranteed marginal coverage.
 
 $$\\text{VaR}_\\alpha = F^{-1}(\\alpha), \\quad \\text{CVaR}_\\alpha = E[L \\mid L \\leq \\text{VaR}_\\alpha]$$
@@ -3464,12 +3465,12 @@ $$\\text{VaR}_\\alpha = F^{-1}(\\alpha), \\quad \\text{CVaR}_\\alpha = E[L \\mid
 <div class="finding-card">
   <span class="finding-num">Insight</span>
   <strong>Board-ready language:</strong> VaR(5%) translates to <em>"In 95 out of 100 quarters, this model
-  will perform at least this well."</em> — executives already think in VaR because it's how banks report
+  will perform at least this well."</em> Executives already think in VaR because it's how banks report
   risk to regulators.<br><br>
   <strong>Conformal prediction sets</strong> solve a different problem: instead of saying "this company is at
-  the pilot stage," the model can say <em>"this company is at pilot OR partial — I'm 90% sure it's one of
+  the pilot stage," the model can say <em>"this company is at pilot OR partial; I'm 90% sure it's one of
   these two."</em> Wider sets = more uncertainty = flag for manual review. A consultant can use set size as
-  a <strong>triage signal</strong> — companies with 1-class sets get automated advice, 3+ class sets get
+  a <strong>triage signal</strong>: companies with 1-class sets get automated advice, 3+ class sets get
   senior partner attention.
 </div>
 """, unsafe_allow_html=True)
@@ -3477,13 +3478,13 @@ $$\\text{VaR}_\\alpha = F^{-1}(\\alpha), \\quad \\text{CVaR}_\\alpha = E[L \\mid
     # ─────────────────────────────────────────────────────────
     # 7.6 — SURVIVAL ANALYSIS (Cox PH + Kaplan-Meier)
     # ─────────────────────────────────────────────────────────
-    with st.expander("7.6  Survival Analysis — Time-to-Full-Adoption", expanded=False, icon=":material/timeline:"):
+    with st.expander("7.6  Which sectors reach full adoption fastest, and when? | Survival Curves", expanded=False, icon=":material/timeline:"):
         st.markdown("""
 <div class="card" style="border-left: 4px solid #4CAF50; padding: 14px 18px; margin-bottom: 12px;">
   <strong style="color:#4CAF50;">Business question:</strong>
   <em>"How many quarters until this company reaches full AI adoption, and what accelerates or delays that timeline?"</em><br>
   <span style="color:#cbd5e1; font-size:0.85rem;">
-    <strong>PE Fund:</strong> Expected holding period before exit — drives IRR calculations &nbsp;|&nbsp;
+    <strong>PE Fund:</strong> Expected holding period before exit (drives IRR calculations) &nbsp;|&nbsp;
     <strong>Consultant:</strong> How long is the transformation engagement? Multi-year retainer vs quick win &nbsp;|&nbsp;
     <strong>CSO:</strong> When can I tell the board we'll reach AI maturity? Which levers accelerate the timeline?
   </span>
@@ -3610,7 +3611,7 @@ $$h(t \\mid X) = h_0(t) \\exp(X \\beta)$$
             st.plotly_chart(fig_km, use_container_width=True)
 
         with col_hr:
-            st.markdown("**Top 15 Covariates — Hazard Ratio Approximation**")
+            st.markdown("**Top 15 Covariates: Hazard Ratio Approximation**")
             if not hazard_df.empty:
                 fig_hr = go.Figure(go.Bar(
                     x=hazard_df['Hazard Ratio (exp)'].values,
@@ -3633,11 +3634,11 @@ $$h(t \\mid X) = h_0(t) \\exp(X \\beta)$$
 <div class="finding-card">
   <span class="finding-num">Insight</span>
   Survival analysis answers the <strong>time dimension</strong> that classification alone cannot.
-  The Kaplan-Meier curves show that <strong>industry matters enormously</strong> — some sectors reach full
+  The Kaplan-Meier curves show that <strong>industry matters enormously</strong>: some sectors reach full
   adoption 2–3× faster than others.<br><br>
   <strong>Actionable use cases:</strong><br>
-  • <strong>PE Fund:</strong> Hazard ratios feed directly into IRR models — a company with HR=2.0 reaches full adoption in half the time, halving the holding period and doubling annualised returns<br>
-  • <strong>Consultant:</strong> KM curves set engagement duration expectations — "Technology sector transformations typically complete in X quarters, Healthcare takes Y"<br>
+  • <strong>PE Fund:</strong> Hazard ratios feed directly into IRR models; a company with HR=2.0 reaches full adoption in half the time, halving the holding period and doubling annualised returns<br>
+  • <strong>Consultant:</strong> KM curves set engagement duration expectations: "Technology sector transformations typically complete in X quarters, Healthcare takes Y"<br>
   • <strong>CSO:</strong> Identify the controllable levers (training hours, budget %) with highest hazard ratios and prioritise investment there
 </div>
 """, unsafe_allow_html=True)
@@ -3645,13 +3646,13 @@ $$h(t \\mid X) = h_0(t) \\exp(X \\beta)$$
     # ─────────────────────────────────────────────────────────
     # 7.7 — BAYESIAN MODEL AVERAGING
     # ─────────────────────────────────────────────────────────
-    with st.expander("7.7  Bayesian Model Averaging (BMA)", expanded=False, icon=":material/balance:"):
+    with st.expander("7.7  Should we trust one model or blend them all? | Ensemble & Model Risk", expanded=False, icon=":material/balance:"):
         st.markdown("""
 <div class="card" style="border-left: 4px solid #4CAF50; padding: 14px 18px; margin-bottom: 12px;">
   <strong style="color:#4CAF50;">Business question:</strong>
   <em>"Should we bet everything on XGBoost, or hedge across all five models?"</em><br>
   <span style="color:#cbd5e1; font-size:0.85rem;">
-    <strong>PE Fund:</strong> Model risk is a real risk — if your single model is wrong, the entire portfolio suffers &nbsp;|&nbsp;
+    <strong>PE Fund:</strong> Model risk is a real risk; if your single model is wrong, the entire portfolio suffers &nbsp;|&nbsp;
     <strong>Consultant:</strong> Presenting a BMA ensemble tells the client "we didn't just pick the shiniest model" &nbsp;|&nbsp;
     <strong>CSO:</strong> Diversification works for models the same way it works for investments
   </span>
@@ -3826,7 +3827,7 @@ $$w_k = \\frac{\\exp(-\\text{BIC}_k / 2)}{\\sum_{j} \\exp(-\\text{BIC}_j / 2)}$$
   <span class="finding-num">Insight</span>
   BMA assigns posterior weights of <strong>{bma_results['weights'][0]:.3f} / {bma_results['weights'][1]:.3f} / {bma_results['weights'][2]:.3f}</strong>
   (DT / RF / XGBoost), reflecting each model's relative evidence. The BMA ensemble achieves F1-macro of
-  <strong>{bma_results['f1s']['BMA']:.4f}</strong> — this acts as "insurance" against model selection risk,
+  <strong>{bma_results['f1s']['BMA']:.4f}</strong>, acting as "insurance" against model selection risk,
   directly analogous to <strong>portfolio diversification</strong> in finance. If one model is strongly
   favored (weight ≈ 1), BMA collapses to model selection; otherwise, it diversifies across architectures.
 </div>
@@ -3836,7 +3837,7 @@ $$w_k = \\frac{\\exp(-\\text{BIC}_k / 2)}{\\sum_{j} \\exp(-\\text{BIC}_j / 2)}$$
     # 7.8 — SYNTHESIS & QUANTITATIVE FINANCE CONCLUSIONS
     # ─────────────────────────────────────────────────────────
     st.markdown("---")
-    st.markdown("### Quantitative Finance Synthesis")
+    st.markdown("### What These Analyses Mean for Your Decisions")
     st.markdown("""
 <div class="diagnostic-box">
   <h4 style="color: #4FC3F7; margin-top:0;">From ML Classifier to Financial Decision Engine</h4>
@@ -3897,11 +3898,11 @@ $$w_k = \\frac{\\exp(-\\text{BIC}_k / 2)}{\\sum_{j} \\exp(-\\text{BIC}_j / 2)}$$
 <div class="card" style="border-top: 3px solid #4CAF50; min-height: 360px;">
   <h4 style="color: #4CAF50; margin-top: 0;">🏦 PE / VC Fund Manager</h4>
   <ol style="color: #cbd5e1; font-size: 0.88rem; padding-left: 18px;">
-    <li><strong>Screen targets</strong> using the cost-sensitive XGBoost (lowest EMC) — optimise for dollars, not F1</li>
-    <li><strong>Size positions</strong> using Kelly fractions from calibrated probabilities — high-conviction bets on f* > 0.15 companies</li>
-    <li><strong>Estimate holding periods</strong> from survival analysis — KM curves give median time-to-full by industry</li>
-    <li><strong>Report model risk</strong> to LPs using VaR/CVaR — "95% confident our screening accuracy exceeds X"</li>
-    <li><strong>Hedge model selection risk</strong> with BMA — don't bet the fund on a single algorithm</li>
+    <li><strong>Screen targets</strong> using the cost-sensitive XGBoost (lowest EMC): optimise for dollars, not F1</li>
+    <li><strong>Size positions</strong> using Kelly fractions from calibrated probabilities; high-conviction bets on f* > 0.15 companies</li>
+    <li><strong>Estimate holding periods</strong> from survival analysis; KM curves give median time-to-full by industry</li>
+    <li><strong>Report model risk</strong> to LPs using VaR/CVaR: "95% confident our screening accuracy exceeds X"</li>
+    <li><strong>Hedge model selection risk</strong> with BMA; don't bet the fund on a single algorithm</li>
   </ol>
 </div>
 """, unsafe_allow_html=True)
@@ -3911,11 +3912,11 @@ $$w_k = \\frac{\\exp(-\\text{BIC}_k / 2)}{\\sum_{j} \\exp(-\\text{BIC}_j / 2)}$$
 <div class="card" style="border-top: 3px solid #4FC3F7; min-height: 360px;">
   <h4 style="color: #4FC3F7; margin-top: 0;">📋 Management Consultant</h4>
   <ol style="color: #cbd5e1; font-size: 0.88rem; padding-left: 18px;">
-    <li><strong>Prioritise engagements</strong> using the efficient frontier — allocate senior staff to highest-return clients</li>
-    <li><strong>Set transformation timelines</strong> using Markov expected times — data-backed, not gut-based</li>
-    <li><strong>Triage uncertainty</strong> with conformal prediction — 1-class sets = automate, 3+ class sets = manual review</li>
-    <li><strong>Justify model choice</strong> to clients with EMC — "we picked XGBoost because it minimises your cost of wrong advice"</li>
-    <li><strong>Identify acceleration levers</strong> from hazard ratios — which interventions actually shorten the timeline?</li>
+    <li><strong>Prioritise engagements</strong> using the efficient frontier: allocate senior staff to highest-return clients</li>
+    <li><strong>Set transformation timelines</strong> using Markov expected times (data-backed, not gut-based)</li>
+    <li><strong>Triage uncertainty</strong> with conformal prediction: 1-class sets get automated advice, 3+ class sets get manual review</li>
+    <li><strong>Justify model choice</strong> to clients with EMC: "we picked XGBoost because it minimises your cost of wrong advice"</li>
+    <li><strong>Identify acceleration levers</strong> from hazard ratios: which interventions actually shorten the timeline?</li>
   </ol>
 </div>
 """, unsafe_allow_html=True)
@@ -3925,11 +3926,11 @@ $$w_k = \\frac{\\exp(-\\text{BIC}_k / 2)}{\\sum_{j} \\exp(-\\text{BIC}_j / 2)}$$
 <div class="card" style="border-top: 3px solid #FF9800; min-height: 360px;">
   <h4 style="color: #FF9800; margin-top: 0;">🎯 Chief Strategy Officer</h4>
   <ol style="color: #cbd5e1; font-size: 0.88rem; padding-left: 18px;">
-    <li><strong>Benchmark your company</strong> against the efficient frontier — are you above or below the optimal risk/return line?</li>
-    <li><strong>Present to the board</strong> using VaR — executives already think in VaR from financial risk reporting</li>
-    <li><strong>Forecast AI maturity</strong> using transition matrix — "at our current trajectory, we reach full adoption in X quarters"</li>
-    <li><strong>Allocate AI budget</strong> using hazard ratios — invest in the levers with highest impact on adoption speed</li>
-    <li><strong>Quantify model confidence</strong> with calibration — "our model's 80% confidence is actually trustworthy (or not)"</li>
+    <li><strong>Benchmark your company</strong> against the efficient frontier: are you above or below the optimal risk/return line?</li>
+    <li><strong>Present to the board</strong> using VaR; executives already think in VaR from financial risk reporting</li>
+    <li><strong>Forecast AI maturity</strong> using transition matrix: "at our current trajectory, we reach full adoption in X quarters"</li>
+    <li><strong>Allocate AI budget</strong> using hazard ratios: invest in the levers with highest impact on adoption speed</li>
+    <li><strong>Quantify model confidence</strong> with calibration: "our model's 80% confidence is actually trustworthy (or not)"</li>
   </ol>
 </div>
 """, unsafe_allow_html=True)
@@ -3938,7 +3939,7 @@ $$w_k = \\frac{\\exp(-\\text{BIC}_k / 2)}{\\sum_{j} \\exp(-\\text{BIC}_j / 2)}$$
 <div class="diagnostic-box" style="margin-top: 20px;">
   <p style="color: #4FC3F7; font-weight: 700; font-size: 1.05rem; margin: 0;">
     This framework demonstrates that a well-calibrated ML classifier, combined with quantitative finance
-    theory, becomes a complete <strong>decision support system</strong> — not just a prediction engine.
+    theory, becomes a complete <strong>decision support system</strong>, not just a prediction engine.
     Every technique above has a direct analogue in institutional finance, making this approach
     immediately legible to CFOs, fund managers, and risk officers.
   </p>
@@ -3981,7 +3982,7 @@ with tab8:
     where they stand</strong>. Manual assessments are slow, expensive, and subjective. A management
     consultancy, PE fund, or internal strategy team needs an <strong>instant, data-driven diagnostic</strong>
     that classifies any company into one of four stages: <em>None, Pilot, Partial,</em> or <em>Full</em>
-    adoption — and explains <strong>why</strong>.
+    adoption, and explains <strong>why</strong>.
   </p>
 </div>
 """, unsafe_allow_html=True)
@@ -4026,12 +4027,12 @@ with tab8:
 <div class="card">
   <h4 style="color:#8B5CF6; margin-top:0;">Data & Preprocessing</h4>
   <ul style="color:#cbd5e1; font-size:1rem; line-height:2;">
-    <li><strong>Critical leakage found & fixed</strong> — <code>ai_adoption_rate</code> was a direct encoding of the target; removing it dropped fake 100% accuracy to honest 74.6%</li>
-    <li><strong>6 engineered features</strong> — domain-derived ratios (AI intensity, maturity trajectory, risk-adjusted maturity, etc.)</li>
+    <li><strong>Critical leakage found & fixed</strong>: <code>ai_adoption_rate</code> was a direct encoding of the target; removing it dropped fake 100% accuracy to honest 74.6%</li>
+    <li><strong>6 engineered features</strong>: domain-derived ratios (AI intensity, maturity trajectory, risk-adjusted maturity, etc.)</li>
     <li><strong>Stratified 70/30 split</strong> preserving class distribution</li>
-    <li><strong>Pipeline architecture</strong> — fit on train only, no data leakage in preprocessing</li>
-    <li><strong>Outliers retained</strong> — tree-based models are robust; IQR analysis documented</li>
-    <li><strong>VIF check</strong> — multicollinearity quantified, justified via permutation importance</li>
+    <li><strong>Pipeline architecture</strong>: fit on train only, no data leakage in preprocessing</li>
+    <li><strong>Outliers retained</strong>: tree-based models are robust; IQR analysis documented</li>
+    <li><strong>VIF check</strong>: multicollinearity quantified, justified via permutation importance</li>
   </ul>
 </div>
 """, unsafe_allow_html=True)
@@ -4046,7 +4047,7 @@ with tab8:
     <li><strong>OOB validation</strong> for Random Forest (no test set contamination)</li>
     <li><strong>Internal validation split</strong> for XGBoost n_estimators optimisation</li>
     <li><strong>SHAP + Permutation Importance</strong> for interpretability</li>
-    <li><strong>Threshold optimisation</strong> — OOB precision-recall trade-off for rare class</li>
+    <li><strong>Threshold optimisation</strong>: OOB precision-recall trade-off for rare class</li>
   </ul>
 </div>
 """, unsafe_allow_html=True)
@@ -4063,9 +4064,9 @@ with tab8:
          "<code>years_using_ai</code> and <code>ai_budget_percentage</code> confirm that companies which committed early and maintained budget allocation consistently reach higher stages. There are no shortcuts."),
         ("#8B5CF6", "3", "XGBoost generalises best with only 1.6% overfit gap",
          "L2 regularisation + conservative learning rate (0.05) + sample weighting for class imbalance produced the most stable model. F1-macro: 0.783 on unseen test data."),
-        ("#F59E0B", "4", "Feature signal is distributed — no small subset suffices",
-         "Reducing from 36 to 15 features caused a 12-point F1 drop. Predictive information is spread across operational, financial, and HR metrics — single-KPI diagnostics will fail."),
-        ("#EF5350", "5", "Data leakage inflated performance to 100% — and we caught it",
+        ("#F59E0B", "4", "Feature signal is distributed: no small subset suffices",
+         "Reducing from 36 to 15 features caused a 12-point F1 drop. Predictive information is spread across operational, financial, and HR metrics; single-KPI diagnostics will fail."),
+        ("#EF5350", "5", "Data leakage inflated performance to 100%, and we caught it",
          "The feature <code>ai_adoption_rate</code> had non-overlapping value ranges per class. Without detecting this, the model would be useless in production despite appearing perfect."),
     ]
 
@@ -4089,10 +4090,10 @@ with tab8:
 <div class="card" style="border-top: 3px solid #4FC3F7;">
   <h4 style="color:#4FC3F7; margin-top:0;">For Consultants & Advisors</h4>
   <ol style="color:#cbd5e1; font-size:1rem; line-height:2; padding-left:18px;">
-    <li><strong>Deploy this classifier as a screening tool</strong> — input a client's operational data and get an instant adoption stage diagnosis with SHAP-based explanation of bottlenecks</li>
-    <li><strong>Use the high-precision threshold (0.79)</strong> when identifying reference cases for benchmarking — fewer false positives means more credible case studies</li>
-    <li><strong>Use the default threshold (0.50)</strong> for broad screening — higher recall captures more candidates for AI transformation engagements</li>
-    <li><strong>Track <code>ai_maturity_score</code> quarterly</strong> as the primary KPI — it is the single strongest predictor of progression across all models</li>
+    <li><strong>Deploy this classifier as a screening tool</strong>: input a client's operational data and get an instant adoption stage diagnosis with SHAP-based explanation of bottlenecks</li>
+    <li><strong>Use the high-precision threshold (0.79)</strong> when identifying reference cases for benchmarking; fewer false positives means more credible case studies</li>
+    <li><strong>Use the default threshold (0.50)</strong> for broad screening; higher recall captures more candidates for AI transformation engagements</li>
+    <li><strong>Track <code>ai_maturity_score</code> quarterly</strong> as the primary KPI; it is the single strongest predictor of progression across all models</li>
   </ol>
 </div>
 """, unsafe_allow_html=True)
@@ -4102,10 +4103,10 @@ with tab8:
 <div class="card" style="border-top: 3px solid #10B981;">
   <h4 style="color:#10B981; margin-top:0;">For C-Suite & Board</h4>
   <ol style="color:#cbd5e1; font-size:1rem; line-height:2; padding-left:18px;">
-    <li><strong>Benchmark against the Markov transition matrix</strong> — "at our current trajectory, we reach full adoption in X quarters" is a board-ready metric</li>
-    <li><strong>Allocate AI budget using hazard ratios</strong> from survival analysis — invest in the levers with highest impact on adoption speed</li>
-    <li><strong>Report model confidence using VaR</strong> — executives already think in VaR from financial risk; 95% of the time, model F1 exceeds X</li>
-    <li><strong>Budget for AI training hours</strong> — it is the second-strongest predictor; companies that under-invest in training consistently stall at the pilot stage</li>
+    <li><strong>Benchmark against the Markov transition matrix</strong>: "at our current trajectory, we reach full adoption in X quarters" is a board-ready metric</li>
+    <li><strong>Allocate AI budget using hazard ratios</strong> from survival analysis: invest in the levers with highest impact on adoption speed</li>
+    <li><strong>Report model confidence using VaR</strong>: executives already think in VaR from financial risk; 95% of the time, model F1 exceeds X</li>
+    <li><strong>Budget for AI training hours</strong>: it is the second-strongest predictor; companies that under-invest in training consistently stall at the pilot stage</li>
   </ol>
 </div>
 """, unsafe_allow_html=True)
@@ -4130,7 +4131,7 @@ with tab8:
     <div style="text-align:center; padding:16px;">
       <div style="font-size:2.4rem; margin-bottom:8px;">🚀</div>
       <div style="font-weight:700; color:#10B981; font-size:1rem; margin-bottom:6px;">Production-Ready App</div>
-      <p style="color:#cbd5e1; font-size:0.92rem; margin:0;">A live predictor with real-time inference, SHAP explanations, and what-if simulation — not just a notebook.</p>
+      <p style="color:#cbd5e1; font-size:0.92rem; margin:0;">A live predictor with real-time inference, SHAP explanations, and what-if simulation, not just a notebook.</p>
     </div>
   </div>
 </div>
@@ -4187,7 +4188,7 @@ with tab8:
   <p style="color:#4FC3F7; font-weight:700; font-size:1.15rem; margin:0; line-height:1.8;">
     This project demonstrates that a well-engineered classification model, combined with
     rigorous validation, explainability (SHAP), and quantitative finance theory, becomes a
-    <strong>complete decision support system</strong> — not just a prediction engine.<br><br>
+    <strong>complete decision support system</strong>, not just a prediction engine.<br><br>
     Every technique has a direct business application. Every metric has a managerial interpretation.
     Every model choice is justified and transparent.
   </p>
