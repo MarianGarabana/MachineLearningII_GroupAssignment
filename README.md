@@ -5,7 +5,7 @@ https://ai-adoption-predictor.streamlit.app/
 **Group 3 · MBDS 2026 · ML2 Group Assignment · IE University**
 
 Interactive Streamlit app that predicts a company's AI adoption stage (none / pilot / partial / full)
-using three trained classifiers: Decision Tree, Random Forest, and XGBoost.
+using five trained classifiers: Decision Tree, Random Forest, XGBoost, KNN, and Naive Bayes.
 
 ---
 
