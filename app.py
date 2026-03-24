@@ -1373,10 +1373,12 @@ with tab3:
     st.markdown('<div style="position:fixed;top:0;left:0;right:0;bottom:0;pointer-events:none;z-index:0;background:radial-gradient(ellipse at 15% 10%, rgba(251,191,36,0.06) 0%, transparent 50%), radial-gradient(ellipse at 85% 80%, rgba(245,158,11,0.04) 0%, transparent 50%);"></div>', unsafe_allow_html=True)
     st.subheader(":material/model_training: Model development & comparison")
     st.markdown("""
-A deliberate **3-model progression** was designed to build intuition and justify complexity:
+A deliberate **5-model comparison** covers every ML2 technique and justifies complexity:
 **Decision Tree** (interpretable baseline, exposes overfitting) →
 **Random Forest** (parallel ensemble, variance reduction via bootstrap) →
-**XGBoost** (sequential ensemble, regularisation via shrinkage).
+**XGBoost** (sequential ensemble, regularisation via shrinkage) +
+**KNN** (distance-based, tests curse of dimensionality) &
+**Naive Bayes** (probabilistic baseline, tests independence assumption).
 """)
 
     # ── Comparison table ─────────────────────────────────────
@@ -1498,7 +1500,7 @@ Precision: 0.24 → **0.45** · Overall F1-macro → 0.80.
 - `max_depth = 5`, `min_child_weight = 50`, `subsample = 1.0`
 - `learning_rate = 0.05` (lambda shrinkage), **300 trees**
 
-**CV F1-macro: 0.901** — highest of all three models
+**CV F1-macro: 0.901** — highest of all five models
 **Overfitting gap: 1.61 %** — consistent and robust
 
 **Key distinction from RF:**
@@ -2199,7 +2201,7 @@ with tab5:
         (
             "1",
             "AI maturity score — the dominant predictor",
-            "`ai_maturity_score` is the single strongest predictor across all 3 models and both "
+            "`ai_maturity_score` is the single strongest predictor across all 5 models and both "
             "importance methods (impurity-based and permutation). This is a consistent finding "
             "regardless of algorithm choice.",
         ),
@@ -3594,7 +3596,7 @@ $$h(t \\mid X) = h_0(t) \\exp(X \\beta)$$
         st.markdown("""
 <div class="card" style="border-left: 4px solid #4CAF50; padding: 14px 18px; margin-bottom: 12px;">
   <strong style="color:#4CAF50;">Business question:</strong>
-  <em>"Should we bet everything on XGBoost, or hedge across all three models?"</em><br>
+  <em>"Should we bet everything on XGBoost, or hedge across all five models?"</em><br>
   <span style="color:#cbd5e1; font-size:0.85rem;">
     <strong>PE Fund:</strong> Model risk is a real risk — if your single model is wrong, the entire portfolio suffers &nbsp;|&nbsp;
     <strong>Consultant:</strong> Presenting a BMA ensemble tells the client "we didn't just pick the shiniest model" &nbsp;|&nbsp;
@@ -4003,7 +4005,7 @@ with tab8:
 
     findings = [
         ("#4FC3F7", "1", "AI maturity score is the dominant predictor",
-         "Consistent across all 3 models and both importance methods (impurity-based and permutation). A company's self-assessed maturity score is the single strongest signal of its actual adoption stage."),
+         "Consistent across all 5 models and both importance methods (impurity-based and permutation). A company's self-assessed maturity score is the single strongest signal of its actual adoption stage."),
         ("#10B981", "2", "Sustained investment drives progression",
          "<code>years_using_ai</code> and <code>ai_budget_percentage</code> confirm that companies which committed early and maintained budget allocation consistently reach higher stages. There are no shortcuts."),
         ("#8B5CF6", "3", "XGBoost generalises best with only 1.6% overfit gap",
@@ -4095,7 +4097,7 @@ with tab8:
     <tr style="border-bottom:1px solid rgba(255,255,255,0.05);">
       <td style="padding:10px; font-size:0.98rem;">Jupyter Notebook</td>
       <td style="padding:10px; color:#10B981; font-weight:700;">&#10003; Complete</td>
-      <td style="padding:10px; font-size:0.95rem;">114 cells &middot; 3 models &middot; GridSearchCV &middot; SHAP &middot; VIF &middot; ROC curves</td>
+      <td style="padding:10px; font-size:0.95rem;">123 cells &middot; 5 models &middot; GridSearchCV &middot; SHAP &middot; VIF &middot; ROC curves &middot; PCA</td>
     </tr>
     <tr style="border-bottom:1px solid rgba(255,255,255,0.05);">
       <td style="padding:10px; font-size:0.98rem;">Summary Report (4 pages)</td>
@@ -4162,8 +4164,8 @@ st.markdown("""
   <div style="display:inline-flex; gap:20px; margin-top:8px;">
     <span style="font-size:0.82rem; color:#334155; text-transform:uppercase;
          letter-spacing:0.15em; font-weight:600;">
-      Decision Tree &middot; Random Forest &middot; XGBoost &middot;
-      Markov Chains &middot; Survival Analysis &middot; Portfolio Theory
+      Decision Tree &middot; Random Forest &middot; XGBoost &middot; KNN &middot; Naive Bayes &middot;
+      PCA &middot; Markov Chains &middot; Survival Analysis &middot; Portfolio Theory
     </span>
   </div>
 </div>
