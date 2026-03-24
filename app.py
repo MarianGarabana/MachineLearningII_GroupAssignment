@@ -229,7 +229,7 @@ button[data-baseweb="tab"] {
     font-family: 'Inter', sans-serif;
     font-size: 0.88rem;
     font-weight: 600;
-    color: #64748b;
+    color: #a0aec0;
     padding: 10px 18px;
     border-radius: 12px !important;
     border-bottom: none !important;
@@ -298,11 +298,11 @@ button[data-baseweb="tab"][aria-selected="true"] {
     letter-spacing: -0.02em;
 }
 .stat-label {
-    font-size: 0.78rem;
-    color: #64748b;
+    font-size: 0.85rem;
+    color: #e2e8f0;
     margin-top: 8px;
     text-transform: uppercase;
-    letter-spacing: 0.15em;
+    letter-spacing: 0.12em;
     font-weight: 600;
 }
 
@@ -356,7 +356,7 @@ button[data-baseweb="tab"][aria-selected="true"] {
     letter-spacing: 0.08em;
     text-shadow: 0 0 30px currentColor, 0 0 60px currentColor;
 }
-.pred-desc { font-size: 1rem; color: #94a3b8; margin-top: 10px; font-weight: 400; }
+.pred-desc { font-size: 1rem; color: #cbd5e1; margin-top: 10px; font-weight: 400; }
 
 /* ── FINDING CARD ── */
 .finding-card {
@@ -827,6 +827,8 @@ tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8 = st.tabs([
 # TAB 1 — OVERVIEW
 # ═══════════════════════════════════════════════════════════════
 with tab1:
+    # ── TAB TINT — deep blue/cyan ──
+    st.markdown('<div style="position:fixed;top:0;left:0;right:0;bottom:0;pointer-events:none;z-index:0;background:radial-gradient(ellipse at 20% 0%, rgba(79,195,247,0.06) 0%, transparent 50%), radial-gradient(ellipse at 80% 100%, rgba(59,130,246,0.04) 0%, transparent 50%);"></div>', unsafe_allow_html=True)
     # ── HERO SECTION ──────────────────────────────────────────
     st.markdown("""
 <div style="position:relative; padding:48px 0 36px 0; overflow:hidden;">
@@ -857,7 +859,7 @@ with tab1:
   </h1>
 
   <!-- Subtitle -->
-  <p style="color:#64748b; font-size:1.1rem; margin-top:16px; font-weight:400;
+  <p style="color:#a0aec0; font-size:1.1rem; margin-top:16px; font-weight:400;
        max-width:600px; line-height:1.6;">
     Predicting company AI maturity stages using ensemble ML models,
     enhanced with quantitative finance risk frameworks.
@@ -868,12 +870,12 @@ with tab1:
     <div style="display:flex; align-items:center; gap:8px;">
       <div style="width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,#4FC3F7,#2E75B6);
            display:flex;align-items:center;justify-content:center;font-size:0.88rem;">G3</div>
-      <span style="color:#94a3b8; font-size:0.9rem;">Group 3</span>
+      <span style="color:#cbd5e1; font-size:0.9rem;">Group 3</span>
     </div>
     <div style="display:flex; align-items:center; gap:8px;">
       <div style="width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,#8B5CF6,#6D28D9);
            display:flex;align-items:center;justify-content:center;font-size:0.85rem;">IE</div>
-      <span style="color:#94a3b8; font-size:0.9rem;">IE University &middot; MBDS 2026</span>
+      <span style="color:#cbd5e1; font-size:0.9rem;">IE University &middot; MBDS 2026</span>
     </div>
   </div>
 </div>
@@ -938,7 +940,7 @@ with tab1:
 <div style="overflow:hidden; background:rgba(15,23,42,0.5); backdrop-filter:blur(16px);
      border:1px solid rgba(255,255,255,0.04); border-radius:12px; padding:10px 0; margin:8px 0 24px 0;">
   <div style="display:flex; white-space:nowrap; animation: ticker 30s linear infinite;">
-    <span style="padding:0 32px; color:#64748b; font-size:0.78rem; font-weight:500;">
+    <span style="padding:0 32px; color:#a0aec0; font-size:0.78rem; font-weight:500;">
       <span style="color:#4FC3F7;">&#9679;</span> 150K Records &nbsp;&middot;&nbsp;
       <span style="color:#10B981;">&#9679;</span> 36 Features &nbsp;&middot;&nbsp;
       <span style="color:#8B5CF6;">&#9679;</span> 4-Class Target &nbsp;&middot;&nbsp;
@@ -951,7 +953,7 @@ with tab1:
       <span style="color:#EF5350;">&#9679;</span> Portfolio Theory &nbsp;&middot;&nbsp;
       <span style="color:#4FC3F7;">&#9679;</span> Conformal Prediction
     </span>
-    <span style="padding:0 32px; color:#64748b; font-size:0.78rem; font-weight:500;">
+    <span style="padding:0 32px; color:#a0aec0; font-size:0.78rem; font-weight:500;">
       <span style="color:#4FC3F7;">&#9679;</span> 150K Records &nbsp;&middot;&nbsp;
       <span style="color:#10B981;">&#9679;</span> 36 Features &nbsp;&middot;&nbsp;
       <span style="color:#8B5CF6;">&#9679;</span> 4-Class Target &nbsp;&middot;&nbsp;
@@ -1036,7 +1038,7 @@ to every class regardless of size — critical here because *full* adopters repr
          background:linear-gradient(90deg,#4FC3F7,#38BDF8); border-radius:14px 0 0 0;"></div>
     <div style="font-size:2rem; margin-bottom:8px;">📥</div>
     <div style="font-weight:700; color:#ffffff; font-size:0.82rem; margin-bottom:4px;">Data Loading</div>
-    <div style="font-size:0.82rem; color:#64748b; line-height:1.4;">150k records<br>raw CSV</div>
+    <div style="font-size:0.82rem; color:#a0aec0; line-height:1.4;">150k records<br>raw CSV</div>
   </div>
 
   <div style="flex:1; background:rgba(15,23,42,0.5); backdrop-filter:blur(20px);
@@ -1046,7 +1048,7 @@ to every class regardless of size — critical here because *full* adopters repr
          background:linear-gradient(90deg,#38BDF8,#818CF8);"></div>
     <div style="font-size:2rem; margin-bottom:8px;">🔍</div>
     <div style="font-weight:700; color:#ffffff; font-size:0.82rem; margin-bottom:4px;">EDA &amp; Leakage</div>
-    <div style="font-size:0.82rem; color:#64748b; line-height:1.4;">Removed leaky feature<br>Stratified split</div>
+    <div style="font-size:0.82rem; color:#a0aec0; line-height:1.4;">Removed leaky feature<br>Stratified split</div>
   </div>
 
   <div style="flex:1; background:rgba(15,23,42,0.5); backdrop-filter:blur(20px);
@@ -1056,7 +1058,7 @@ to every class regardless of size — critical here because *full* adopters repr
          background:linear-gradient(90deg,#818CF8,#8B5CF6);"></div>
     <div style="font-size:2rem; margin-bottom:8px;">&#9881;&#65039;</div>
     <div style="font-weight:700; color:#ffffff; font-size:0.82rem; margin-bottom:4px;">Preprocessing</div>
-    <div style="font-size:0.82rem; color:#64748b; line-height:1.4;">Imputation<br>One-hot encoding</div>
+    <div style="font-size:0.82rem; color:#a0aec0; line-height:1.4;">Imputation<br>One-hot encoding</div>
   </div>
 
   <div style="flex:1; background:rgba(15,23,42,0.5); backdrop-filter:blur(20px);
@@ -1066,7 +1068,7 @@ to every class regardless of size — critical here because *full* adopters repr
          background:linear-gradient(90deg,#8B5CF6,#A78BFA);"></div>
     <div style="font-size:2rem; margin-bottom:8px;">🧠</div>
     <div style="font-weight:700; color:#ffffff; font-size:0.82rem; margin-bottom:4px;">Model Training</div>
-    <div style="font-size:0.82rem; color:#64748b; line-height:1.4;">DT &rarr; RF &rarr; XGBoost<br>GridSearchCV</div>
+    <div style="font-size:0.82rem; color:#a0aec0; line-height:1.4;">DT &rarr; RF &rarr; XGBoost<br>GridSearchCV</div>
   </div>
 
   <div style="flex:1; background:rgba(15,23,42,0.5); backdrop-filter:blur(20px);
@@ -1076,7 +1078,7 @@ to every class regardless of size — critical here because *full* adopters repr
          background:linear-gradient(90deg,#A78BFA,#10B981); border-radius:0 14px 0 0;"></div>
     <div style="font-size:2rem; margin-bottom:8px;">📈</div>
     <div style="font-weight:700; color:#ffffff; font-size:0.82rem; margin-bottom:4px;">Eval &amp; SHAP</div>
-    <div style="font-size:0.82rem; color:#64748b; line-height:1.4;">F1-macro<br>Feature importance</div>
+    <div style="font-size:0.82rem; color:#a0aec0; line-height:1.4;">F1-macro<br>Feature importance</div>
   </div>
 
 </div>
@@ -1086,6 +1088,8 @@ to every class regardless of size — critical here because *full* adopters repr
 # TAB 2 — EDA
 # ═══════════════════════════════════════════════════════════════
 with tab2:
+    # ── TAB TINT — emerald/teal ──
+    st.markdown('<div style="position:fixed;top:0;left:0;right:0;bottom:0;pointer-events:none;z-index:0;background:radial-gradient(ellipse at 30% 0%, rgba(16,185,129,0.07) 0%, transparent 50%), radial-gradient(ellipse at 70% 90%, rgba(20,184,166,0.05) 0%, transparent 50%);"></div>', unsafe_allow_html=True)
     st.subheader(":material/analytics: Exploratory data analysis")
 
     # ── Class imbalance ──────────────────────────────────────
@@ -1365,6 +1369,8 @@ for this dataset.
 # TAB 3 — MODELS
 # ═══════════════════════════════════════════════════════════════
 with tab3:
+    # ── TAB TINT — amber/orange ──
+    st.markdown('<div style="position:fixed;top:0;left:0;right:0;bottom:0;pointer-events:none;z-index:0;background:radial-gradient(ellipse at 15% 10%, rgba(251,191,36,0.06) 0%, transparent 50%), radial-gradient(ellipse at 85% 80%, rgba(245,158,11,0.04) 0%, transparent 50%);"></div>', unsafe_allow_html=True)
     st.subheader(":material/model_training: Model development & comparison")
     st.markdown("""
 A deliberate **3-model progression** was designed to build intuition and justify complexity:
@@ -1822,6 +1828,8 @@ where $b$ = samples RF gets right but XGBoost gets wrong, $c$ = the reverse.
 # TAB 4 — LIVE PREDICTOR
 # ═══════════════════════════════════════════════════════════════
 with tab4:
+    # ── TAB TINT — violet/purple ──
+    st.markdown('<div style="position:fixed;top:0;left:0;right:0;bottom:0;pointer-events:none;z-index:0;background:radial-gradient(ellipse at 25% 5%, rgba(139,92,246,0.07) 0%, transparent 50%), radial-gradient(ellipse at 75% 85%, rgba(168,85,247,0.05) 0%, transparent 50%);"></div>', unsafe_allow_html=True)
     st.subheader(":material/model_training: Company AI adoption stage predictor")
     st.caption("Input a company profile and get a real-time prediction from the trained XGBoost model.")
 
@@ -2180,6 +2188,8 @@ Model: XGBoost Final Classifier (F1-macro: 0.783)
 # TAB 5 — FINDINGS & RECOMMENDATIONS
 # ═══════════════════════════════════════════════════════════════
 with tab5:
+    # ── TAB TINT — rose/pink ──
+    st.markdown('<div style="position:fixed;top:0;left:0;right:0;bottom:0;pointer-events:none;z-index:0;background:radial-gradient(ellipse at 20% 0%, rgba(244,63,94,0.06) 0%, transparent 50%), radial-gradient(ellipse at 80% 90%, rgba(236,72,153,0.04) 0%, transparent 50%);"></div>', unsafe_allow_html=True)
     st.subheader(":material/lightbulb: Key findings & business recommendations")
 
     # ── Technical findings ───────────────────────────────────
@@ -2306,6 +2316,8 @@ with tab5:
 # TAB 6 — PE / VC OPERATIONAL ALPHA
 # ═══════════════════════════════════════════════════════════════
 with tab6:
+    # ── TAB TINT — gold/warm ──
+    st.markdown('<div style="position:fixed;top:0;left:0;right:0;bottom:0;pointer-events:none;z-index:0;background:radial-gradient(ellipse at 10% 15%, rgba(234,179,8,0.06) 0%, transparent 50%), radial-gradient(ellipse at 90% 75%, rgba(217,119,6,0.05) 0%, transparent 50%);"></div>', unsafe_allow_html=True)
     st.subheader(":material/show_chart: Private Equity Operational Alpha Simulator")
     st.markdown('''
 <div class="card" style="border-left: 4px solid #4CAF50;">
@@ -2402,6 +2414,8 @@ with tab6:
 # TAB 7 — QUANTITATIVE FINANCE ANALYTICS
 # ═══════════════════════════════════════════════════════════════
 with tab7:
+    # ── TAB TINT — deep blue/indigo ──
+    st.markdown('<div style="position:fixed;top:0;left:0;right:0;bottom:0;pointer-events:none;z-index:0;background:radial-gradient(ellipse at 30% 0%, rgba(99,102,241,0.08) 0%, transparent 50%), radial-gradient(ellipse at 60% 100%, rgba(79,195,247,0.05) 0%, transparent 50%);"></div>', unsafe_allow_html=True)
     # ── STUNNING HERO for QF tab ──
     st.markdown("""
 <div style="position:relative; padding:36px 0 24px 0; overflow:hidden;">
@@ -2428,7 +2442,7 @@ with tab7:
     & Business Strategy</span>
   </h1>
 
-  <p style="color:#64748b; font-size:1.05rem; margin-top:14px; max-width:700px; line-height:1.7;">
+  <p style="color:#a0aec0; font-size:1.05rem; margin-top:14px; max-width:700px; line-height:1.7;">
     Bridging the gap between machine learning classification and real-world financial
     decision-making. Seven Nobel-calibre frameworks transform model predictions into
     actionable investment signals, risk-adjusted strategies, and time-aware forecasts.
@@ -2487,7 +2501,7 @@ with tab7:
 <div class="stat-card" style="border-left: 4px solid #4CAF50;">
   <div style="font-size: 1.5rem; margin-bottom: 8px;">🏦</div>
   <div style="color: #4CAF50; font-weight: 700; font-size: 0.95rem;">PE / VC Fund Manager</div>
-  <div style="color: #94a3b8; font-size: 0.88rem; margin-top: 6px;">
+  <div style="color: #cbd5e1; font-size: 0.88rem; margin-top: 6px;">
     Screen acquisition targets, estimate holding periods,<br>size investments using model conviction
   </div>
 </div>
@@ -2497,7 +2511,7 @@ with tab7:
 <div class="stat-card" style="border-left: 4px solid #4FC3F7;">
   <div style="font-size: 1.5rem; margin-bottom: 8px;">📋</div>
   <div style="color: #4FC3F7; font-weight: 700; font-size: 0.95rem;">Management Consultant</div>
-  <div style="color: #94a3b8; font-size: 0.88rem; margin-top: 6px;">
+  <div style="color: #cbd5e1; font-size: 0.88rem; margin-top: 6px;">
     Prioritise client engagements, allocate consulting<br>resources to highest-ROI transformation projects
   </div>
 </div>
@@ -2507,7 +2521,7 @@ with tab7:
 <div class="stat-card" style="border-left: 4px solid #FF9800;">
   <div style="font-size: 1.5rem; margin-bottom: 8px;">🎯</div>
   <div style="color: #FF9800; font-weight: 700; font-size: 0.95rem;">Chief Strategy Officer</div>
-  <div style="color: #94a3b8; font-size: 0.88rem; margin-top: 6px;">
+  <div style="color: #cbd5e1; font-size: 0.88rem; margin-top: 6px;">
     Forecast internal AI adoption timelines, justify<br>board-level budget allocation with data-backed evidence
   </div>
 </div>
@@ -2541,7 +2555,7 @@ with tab7:
 <div class="stat-card" style="border-left:4px solid #4FC3F7; text-align:center; padding:22px;">
   <div style="font-size:1.5rem; margin-bottom:6px;">🤖</div>
   <div style="font-weight:700; color:#4FC3F7; font-size:0.95rem;">XGBoost</div>
-  <div style="font-size:0.78rem; color:#64748b; margin-top:4px;">F1-macro: 0.783</div>
+  <div style="font-size:0.78rem; color:#a0aec0; margin-top:4px;">F1-macro: 0.783</div>
 </div>
 """, unsafe_allow_html=True)
     with map_cols[1]:
@@ -2551,31 +2565,31 @@ with tab7:
 <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:6px;">
   <div style="background:rgba(76,175,80,0.1); border:1px solid rgba(76,175,80,0.25); border-radius:10px; padding:10px; text-align:center;">
     <div style="font-size:0.85rem; color:#4CAF50; font-weight:700;">MARKOV</div>
-    <div style="font-size:0.88rem; color:#64748b;">Trajectories</div>
+    <div style="font-size:0.88rem; color:#a0aec0;">Trajectories</div>
   </div>
   <div style="background:rgba(255,152,0,0.1); border:1px solid rgba(255,152,0,0.25); border-radius:10px; padding:10px; text-align:center;">
     <div style="font-size:0.85rem; color:#FF9800; font-weight:700;">EMV</div>
-    <div style="font-size:0.88rem; color:#64748b;">Cost-Optimal</div>
+    <div style="font-size:0.88rem; color:#a0aec0;">Cost-Optimal</div>
   </div>
   <div style="background:rgba(79,195,247,0.1); border:1px solid rgba(79,195,247,0.25); border-radius:10px; padding:10px; text-align:center;">
     <div style="font-size:0.85rem; color:#4FC3F7; font-weight:700;">CALIBRATION</div>
-    <div style="font-size:0.88rem; color:#64748b;">Trust Scores</div>
+    <div style="font-size:0.88rem; color:#a0aec0;">Trust Scores</div>
   </div>
   <div style="background:rgba(139,92,246,0.1); border:1px solid rgba(139,92,246,0.25); border-radius:10px; padding:10px; text-align:center;">
     <div style="font-size:0.85rem; color:#8B5CF6; font-weight:700;">PORTFOLIO</div>
-    <div style="font-size:0.88rem; color:#64748b;">Allocation</div>
+    <div style="font-size:0.88rem; color:#a0aec0;">Allocation</div>
   </div>
   <div style="background:rgba(239,83,80,0.1); border:1px solid rgba(239,83,80,0.25); border-radius:10px; padding:10px; text-align:center;">
     <div style="font-size:0.85rem; color:#EF5350; font-weight:700;">VaR / CVaR</div>
-    <div style="font-size:0.88rem; color:#64748b;">Risk Bounds</div>
+    <div style="font-size:0.88rem; color:#a0aec0;">Risk Bounds</div>
   </div>
   <div style="background:rgba(16,185,129,0.1); border:1px solid rgba(16,185,129,0.25); border-radius:10px; padding:10px; text-align:center;">
     <div style="font-size:0.85rem; color:#10B981; font-weight:700;">SURVIVAL</div>
-    <div style="font-size:0.88rem; color:#64748b;">Time-to-Full</div>
+    <div style="font-size:0.88rem; color:#a0aec0;">Time-to-Full</div>
   </div>
   <div style="background:rgba(251,191,36,0.1); border:1px solid rgba(251,191,36,0.25); border-radius:10px; padding:10px; text-align:center; grid-column:span 2;">
     <div style="font-size:0.85rem; color:#FBBF24; font-weight:700;">BMA ENSEMBLE</div>
-    <div style="font-size:0.88rem; color:#64748b;">Model Risk Reduction</div>
+    <div style="font-size:0.88rem; color:#a0aec0;">Model Risk Reduction</div>
   </div>
 </div>
 """, unsafe_allow_html=True)
@@ -2586,7 +2600,7 @@ with tab7:
 <div class="stat-card" style="border-left:4px solid #10B981; text-align:center; padding:22px;">
   <div style="font-size:1.5rem; margin-bottom:6px;">💰</div>
   <div style="font-weight:700; color:#10B981; font-size:0.95rem;">Business Decision</div>
-  <div style="font-size:0.78rem; color:#64748b; margin-top:4px;">Capital allocation</div>
+  <div style="font-size:0.78rem; color:#a0aec0; margin-top:4px;">Capital allocation</div>
 </div>
 """, unsafe_allow_html=True)
 
@@ -2601,7 +2615,7 @@ with tab7:
 <div class="card" style="border-left: 4px solid #4CAF50; padding: 14px 18px; margin-bottom: 12px;">
   <strong style="color:#4CAF50;">Business question:</strong>
   <em>"If a company is currently at the pilot stage, how long until it reaches full adoption — and what's the probability it regresses back to none?"</em><br>
-  <span style="color:#94a3b8; font-size:0.85rem;">
+  <span style="color:#cbd5e1; font-size:0.85rem;">
     <strong>PE Fund:</strong> Estimate holding periods for portfolio companies &nbsp;|&nbsp;
     <strong>Consultant:</strong> Set realistic client transformation timelines &nbsp;|&nbsp;
     <strong>CSO:</strong> Forecast internal AI maturity roadmap to the board
@@ -2778,7 +2792,7 @@ $P(\\Delta t) = e^{Q \\Delta t}$, enabling projection of adoption trajectories o
 <div class="card" style="border-left: 4px solid #4CAF50; padding: 14px 18px; margin-bottom: 12px;">
   <strong style="color:#4CAF50;">Business question:</strong>
   <em>"Which model costs us the least money when it's wrong?"</em><br>
-  <span style="color:#94a3b8; font-size:0.85rem;">
+  <span style="color:#cbd5e1; font-size:0.85rem;">
     <strong>PE Fund:</strong> Misclassifying a "full" adopter as "none" = missed $50M acquisition opportunity &nbsp;|&nbsp;
     <strong>Consultant:</strong> Sending a senior team to a "none" company misclassified as "full" = $200k wasted engagement &nbsp;|&nbsp;
     <strong>CSO:</strong> Overestimating adoption stage = premature scaling, budget waste
@@ -2891,7 +2905,7 @@ $$\\text{Expected Misclassification Cost} = \\sum_{i,j} C_{ij} \\cdot \\text{CM}
 <div class="card" style="border-left: 4px solid #4CAF50; padding: 14px 18px; margin-bottom: 12px;">
   <strong style="color:#4CAF50;">Business question:</strong>
   <em>"When the model says '80% confident this company is at full adoption,' can I actually trust that number?"</em><br>
-  <span style="color:#94a3b8; font-size:0.85rem;">
+  <span style="color:#cbd5e1; font-size:0.85rem;">
     <strong>PE Fund:</strong> Uncalibrated confidence → wrong bet sizing → portfolio blow-up &nbsp;|&nbsp;
     <strong>Consultant:</strong> Over-confident predictions → wrong recommendations → client trust erosion &nbsp;|&nbsp;
     <strong>CSO:</strong> Unreliable probabilities → board gets misled on AI readiness
@@ -3047,7 +3061,7 @@ Lower Brier = better. Perfect calibration → Brier = 0.
 <div class="card" style="border-left: 4px solid #4CAF50; padding: 14px 18px; margin-bottom: 12px;">
   <strong style="color:#4CAF50;">Business question:</strong>
   <em>"Given our model's predictions across 2,000 companies, how should we allocate our limited capital or consulting bandwidth?"</em><br>
-  <span style="color:#94a3b8; font-size:0.85rem;">
+  <span style="color:#cbd5e1; font-size:0.85rem;">
     <strong>PE Fund:</strong> Optimal portfolio of acquisition targets maximising risk-adjusted return &nbsp;|&nbsp;
     <strong>Consultant:</strong> Which client mix maximises engagement ROI given staff constraints? &nbsp;|&nbsp;
     <strong>CSO:</strong> How to distribute AI transformation budget across business units
@@ -3236,7 +3250,7 @@ $$\\mu_i = \\sum_k p_{ik} \\cdot r_k, \\quad \\sigma^2_p = \\mathbf{w}^T \\Sigma
 <div class="card" style="border-left: 4px solid #4CAF50; padding: 14px 18px; margin-bottom: 12px;">
   <strong style="color:#4CAF50;">Business question:</strong>
   <em>"How badly can this model fail, and how certain are we about any individual prediction?"</em><br>
-  <span style="color:#94a3b8; font-size:0.85rem;">
+  <span style="color:#cbd5e1; font-size:0.85rem;">
     <strong>PE Fund:</strong> What's my worst-case misclassification rate in a bad quarter? (VaR for model risk) &nbsp;|&nbsp;
     <strong>Consultant:</strong> Can I give the client a prediction <em>range</em> instead of a point estimate? (conformal sets) &nbsp;|&nbsp;
     <strong>CSO:</strong> How do I communicate model uncertainty to a non-technical board? (VaR is their language)
@@ -3413,7 +3427,7 @@ $$\\text{VaR}_\\alpha = F^{-1}(\\alpha), \\quad \\text{CVaR}_\\alpha = E[L \\mid
 <div class="card" style="border-left: 4px solid #4CAF50; padding: 14px 18px; margin-bottom: 12px;">
   <strong style="color:#4CAF50;">Business question:</strong>
   <em>"How many quarters until this company reaches full AI adoption, and what accelerates or delays that timeline?"</em><br>
-  <span style="color:#94a3b8; font-size:0.85rem;">
+  <span style="color:#cbd5e1; font-size:0.85rem;">
     <strong>PE Fund:</strong> Expected holding period before exit — drives IRR calculations &nbsp;|&nbsp;
     <strong>Consultant:</strong> How long is the transformation engagement? Multi-year retainer vs quick win &nbsp;|&nbsp;
     <strong>CSO:</strong> When can I tell the board we'll reach AI maturity? Which levers accelerate the timeline?
@@ -3581,7 +3595,7 @@ $$h(t \\mid X) = h_0(t) \\exp(X \\beta)$$
 <div class="card" style="border-left: 4px solid #4CAF50; padding: 14px 18px; margin-bottom: 12px;">
   <strong style="color:#4CAF50;">Business question:</strong>
   <em>"Should we bet everything on XGBoost, or hedge across all three models?"</em><br>
-  <span style="color:#94a3b8; font-size:0.85rem;">
+  <span style="color:#cbd5e1; font-size:0.85rem;">
     <strong>PE Fund:</strong> Model risk is a real risk — if your single model is wrong, the entire portfolio suffers &nbsp;|&nbsp;
     <strong>Consultant:</strong> Presenting a BMA ensemble tells the client "we didn't just pick the shiniest model" &nbsp;|&nbsp;
     <strong>CSO:</strong> Diversification works for models the same way it works for investments
@@ -3880,6 +3894,8 @@ $$w_k = \\frac{\\exp(-\\text{BIC}_k / 2)}{\\sum_{j} \\exp(-\\text{BIC}_j / 2)}$$
 # TAB 8 — EXECUTIVE SUMMARY
 # ═══════════════════════════════════════════════════════════════
 with tab8:
+    # ── TAB TINT — green/emerald executive ──
+    st.markdown('<div style="position:fixed;top:0;left:0;right:0;bottom:0;pointer-events:none;z-index:0;background:radial-gradient(ellipse at 40% 0%, rgba(16,185,129,0.06) 0%, transparent 50%), radial-gradient(ellipse at 50% 100%, rgba(52,211,153,0.04) 0%, transparent 50%);"></div>', unsafe_allow_html=True)
     st.markdown("""
 <div style="padding: 32px 0 20px 0;">
   <div style="display:inline-flex; align-items:center; gap:8px; padding:6px 16px;
@@ -3921,27 +3937,27 @@ with tab8:
   <div style="background:rgba(15,23,42,0.5); border:1px solid rgba(255,255,255,0.06);
        border-radius:14px; padding:20px; text-align:center;">
     <div style="font-size:2rem; font-weight:900; color:#4FC3F7;">150K</div>
-    <div style="font-size:0.85rem; color:#64748b; text-transform:uppercase; letter-spacing:0.1em; margin-top:4px;">Records</div>
+    <div style="font-size:0.85rem; color:#a0aec0; text-transform:uppercase; letter-spacing:0.1em; margin-top:4px;">Records</div>
   </div>
   <div style="background:rgba(15,23,42,0.5); border:1px solid rgba(255,255,255,0.06);
        border-radius:14px; padding:20px; text-align:center;">
     <div style="font-size:2rem; font-weight:900; color:#10B981;">36</div>
-    <div style="font-size:0.85rem; color:#64748b; text-transform:uppercase; letter-spacing:0.1em; margin-top:4px;">Features</div>
+    <div style="font-size:0.85rem; color:#a0aec0; text-transform:uppercase; letter-spacing:0.1em; margin-top:4px;">Features</div>
   </div>
   <div style="background:rgba(15,23,42,0.5); border:1px solid rgba(255,255,255,0.06);
        border-radius:14px; padding:20px; text-align:center;">
     <div style="font-size:2rem; font-weight:900; color:#8B5CF6;">5</div>
-    <div style="font-size:0.85rem; color:#64748b; text-transform:uppercase; letter-spacing:0.1em; margin-top:4px;">Models Tested</div>
+    <div style="font-size:0.85rem; color:#a0aec0; text-transform:uppercase; letter-spacing:0.1em; margin-top:4px;">Models Tested</div>
   </div>
   <div style="background:rgba(15,23,42,0.5); border:1px solid rgba(255,255,255,0.06);
        border-radius:14px; padding:20px; text-align:center;">
     <div style="font-size:2rem; font-weight:900; color:#F59E0B;">78.3%</div>
-    <div style="font-size:0.85rem; color:#64748b; text-transform:uppercase; letter-spacing:0.1em; margin-top:4px;">Best F1-Macro</div>
+    <div style="font-size:0.85rem; color:#a0aec0; text-transform:uppercase; letter-spacing:0.1em; margin-top:4px;">Best F1-Macro</div>
   </div>
   <div style="background:rgba(15,23,42,0.5); border:1px solid rgba(255,255,255,0.06);
        border-radius:14px; padding:20px; text-align:center;">
     <div style="font-size:2rem; font-weight:900; color:#EF5350;">1.6%</div>
-    <div style="font-size:0.85rem; color:#64748b; text-transform:uppercase; letter-spacing:0.1em; margin-top:4px;">Overfit Gap</div>
+    <div style="font-size:0.85rem; color:#a0aec0; text-transform:uppercase; letter-spacing:0.1em; margin-top:4px;">Overfit Gap</div>
   </div>
 </div>
 """, unsafe_allow_html=True)
@@ -4003,7 +4019,7 @@ with tab8:
 <div class="finding-card" style="border-image: none; border-left: 4px solid {color};">
   <span class="finding-num" style="background:none; -webkit-text-fill-color:{color}; color:{color};">{num}</span>
   <strong style="color:#f1f5f9; font-size:1.05rem;">{title}</strong>
-  <p style="color:#94a3b8; margin:8px 0 0 0; font-size:0.98rem; line-height:1.7;">{desc}</p>
+  <p style="color:#cbd5e1; margin:8px 0 0 0; font-size:0.98rem; line-height:1.7;">{desc}</p>
 </div>
 """, unsafe_allow_html=True)
 
@@ -4049,17 +4065,17 @@ with tab8:
     <div style="text-align:center; padding:16px;">
       <div style="font-size:2.4rem; margin-bottom:8px;">🔍</div>
       <div style="font-weight:700; color:#EF5350; font-size:1rem; margin-bottom:6px;">Leakage Detection</div>
-      <p style="color:#94a3b8; font-size:0.92rem; margin:0;">We caught a feature that gave fake 100% accuracy. Most teams would have reported it as a win.</p>
+      <p style="color:#cbd5e1; font-size:0.92rem; margin:0;">We caught a feature that gave fake 100% accuracy. Most teams would have reported it as a win.</p>
     </div>
     <div style="text-align:center; padding:16px;">
       <div style="font-size:2.4rem; margin-bottom:8px;">🏦</div>
       <div style="font-weight:700; color:#4FC3F7; font-size:1rem; margin-bottom:6px;">Quantitative Finance Layer</div>
-      <p style="color:#94a3b8; font-size:0.92rem; margin:0;">7 finance frameworks (Markov chains, portfolio theory, VaR, survival analysis) transform the classifier into a decision engine.</p>
+      <p style="color:#cbd5e1; font-size:0.92rem; margin:0;">7 finance frameworks (Markov chains, portfolio theory, VaR, survival analysis) transform the classifier into a decision engine.</p>
     </div>
     <div style="text-align:center; padding:16px;">
       <div style="font-size:2.4rem; margin-bottom:8px;">🚀</div>
       <div style="font-weight:700; color:#10B981; font-size:1rem; margin-bottom:6px;">Production-Ready App</div>
-      <p style="color:#94a3b8; font-size:0.92rem; margin:0;">A live predictor with real-time inference, SHAP explanations, and what-if simulation — not just a notebook.</p>
+      <p style="color:#cbd5e1; font-size:0.92rem; margin:0;">A live predictor with real-time inference, SHAP explanations, and what-if simulation — not just a notebook.</p>
     </div>
   </div>
 </div>
