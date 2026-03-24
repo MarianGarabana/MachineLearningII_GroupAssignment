@@ -1303,13 +1303,18 @@ due to multicollinearity. VIF > 10 indicates severe multicollinearity; VIF > 5 w
                 ))
                 fig_vif = dark_fig(fig_vif)
                 fig_vif.update_layout(
-                    xaxis_title="VIF", height=420,
+                    xaxis_title="VIF (log scale)", height=420,
+                    xaxis=dict(type="log", dtick=1),
                     yaxis=dict(autorange="reversed"),
                 )
                 fig_vif.add_vline(x=10, line_dash="dash", line_color=RED,
-                                  annotation_text="VIF = 10 (severe)")
+                                  annotation_text="VIF = 10 (severe)",
+                                  annotation_position="top right",
+                                  annotation_font=dict(size=13, color=RED))
                 fig_vif.add_vline(x=5, line_dash="dot", line_color=WARNING,
-                                  annotation_text="VIF = 5 (moderate)")
+                                  annotation_text="VIF = 5 (moderate)",
+                                  annotation_position="bottom right",
+                                  annotation_font=dict(size=13, color=WARNING))
                 st.plotly_chart(fig_vif, use_container_width=True)
 
             with vif_col2:
