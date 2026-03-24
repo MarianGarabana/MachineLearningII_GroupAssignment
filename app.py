@@ -1385,12 +1385,12 @@ A deliberate **5-model comparison** covers every ML2 technique and justifies com
     st.markdown("#### Model comparison")
     model_df = pd.DataFrame({
         "Model":            ["Decision Tree", "Random Forest", "XGBoost", "KNN", "Naive Bayes"],
-        "CV F1-macro":      [0.749, 0.768, 0.901, "—", "—"],
-        "Test F1-macro":    [0.742, 0.763, 0.783, 0.680, 0.520],
-        "Test accuracy":    [0.822, 0.833, 0.862, 0.780, 0.610],
-        "Recall-macro":     [0.852, 0.880, 0.903, 0.750, 0.580],
-        "Precision-macro":  [0.720, 0.735, 0.754, 0.650, 0.490],
-        "Overfitting gap":  ["~25 pp", "Small", "1.61 %", "Moderate", "Low"],
+        "CV F1-macro":      [0.749, 0.768, 0.901, 0.718, "—"],
+        "Test F1-macro":    [0.742, 0.763, 0.783, 0.722, 0.707],
+        "Test accuracy":    [0.822, 0.833, 0.862, 0.840, 0.770],
+        "Recall-macro":     [0.852, 0.880, 0.903, 0.692, 0.840],
+        "Precision-macro":  [0.720, 0.735, 0.754, 0.839, 0.694],
+        "Overfitting gap":  ["~25 pp", "Small", "1.61 %", "~5 pp", "~0 pp"],
     })
 
     def highlight_xgb(row):
@@ -1407,11 +1407,11 @@ A deliberate **5-model comparison** covers every ML2 technique and justifies com
     highlight_metric = st.selectbox("Highlight metric", metric_opts, index=1)
 
     numeric_map = {
-        "CV F1-macro":     [0.749, 0.768, 0.901, 0.660, 0.500],
-        "Test F1-macro":   [0.742, 0.763, 0.783, 0.680, 0.520],
-        "Test accuracy":   [0.822, 0.833, 0.862, 0.780, 0.610],
-        "Recall-macro":    [0.852, 0.880, 0.903, 0.750, 0.580],
-        "Precision-macro": [0.720, 0.735, 0.754, 0.650, 0.490],
+        "CV F1-macro":     [0.749, 0.768, 0.901, 0.718, 0.700],
+        "Test F1-macro":   [0.742, 0.763, 0.783, 0.722, 0.707],
+        "Test accuracy":   [0.822, 0.833, 0.862, 0.840, 0.770],
+        "Recall-macro":    [0.852, 0.880, 0.903, 0.692, 0.840],
+        "Precision-macro": [0.720, 0.735, 0.754, 0.839, 0.694],
     }
     model_names = ["Decision Tree", "Random Forest", "XGBoost", "KNN", "Naive Bayes"]
     bar_colours_map = {m: [ACCENT2 if m == highlight_metric else GREY] * 3 for m in metric_opts}
@@ -1555,25 +1555,24 @@ Unlike tree-based models, it is sensitive to feature scaling and suffers from th
             st.markdown("""
 **Best params** (GridSearchCV, 7 candidates, 3-fold CV)
 - `n_neighbors` = 7
-- `weights` = distance
+- `weights` = uniform
 
-**Test F1-macro: ~0.680**
+**CV F1-macro: 0.718 · Test F1-macro: 0.722**
 
-**Why KNN underperforms:** With 101 features after one-hot encoding,
-distance metrics become unreliable (curse of dimensionality). All points
-appear roughly equidistant, weakening the nearest-neighbour assumption.
-PCA could help but our analysis showed tree-based models are simply better
-suited to this tabular dataset.
+**Why KNN underperforms on F1 but has high precision (0.839):**
+KNN is conservative — it predicts the majority class well but struggles
+with the rare `full` class (F1=0.29). With 73 features, distance metrics
+weaken (curse of dimensionality). Overfitting gap ~5pp (train 0.772 vs test 0.722).
 """)
         with knn_col2:
             st.markdown("""
 | Class | Precision | Recall | F1 | Support |
 |-------|-----------|--------|-----|---------|
-| full | 0.15 | 0.70 | 0.25 | 506 |
-| none | 0.85 | 0.90 | 0.87 | 1559 |
-| partial | 0.82 | 0.72 | 0.77 | 23640 |
-| pilot | 0.73 | 0.80 | 0.76 | 19295 |
-| **macro avg** | **0.64** | **0.78** | **0.66** | — |
+| full | 0.75 | 0.18 | 0.29 | 506 |
+| none | 0.93 | 0.90 | 0.92 | 1559 |
+| partial | 0.85 | 0.86 | 0.85 | 23640 |
+| pilot | 0.82 | 0.82 | 0.82 | 19295 |
+| **macro avg** | **0.84** | **0.69** | **0.72** | — |
 """)
 
     # ── Naive Bayes expander ──────────────────────────────────
@@ -1588,31 +1587,29 @@ that our VIF analysis (Section 2.8) shows is clearly violated.
             st.markdown("""
 **No hyperparameters to tune** — GaussianNB has no meaningful tuning knobs.
 
-**Test F1-macro: ~0.520**
+**Test F1-macro: 0.707 · Test accuracy: 0.770**
 
-**Why Naive Bayes fails here:**
+**Surprisingly competitive on recall (0.840) but weak on precision (0.694):**
 1. **Independence assumption violated** — VIF shows features like `ai_projects_active`,
    `ai_training_hours`, and `ai_budget_percentage` have VIF > 30,000
-   (extreme multicollinearity)
-2. **Gaussian assumption** — many features are heavily skewed
-   (Section 2.6), violating the normal distribution assumption
-3. **Despite this**, NB provides a useful lower bound and confirms
-   that feature correlations carry critical predictive signal
+2. **NB over-predicts the `full` class** — recall 0.84 but precision only 0.17,
+   meaning it catches most `full` companies but generates many false positives
+3. **Zero overfitting** (train F1 = test F1 = 0.707) — the model is too simple to overfit
 """)
         with nb_col2:
             st.markdown("""
 | Class | Precision | Recall | F1 | Support |
 |-------|-----------|--------|-----|---------|
-| full | 0.08 | 0.65 | 0.14 | 506 |
-| none | 0.60 | 0.75 | 0.67 | 1559 |
-| partial | 0.70 | 0.55 | 0.62 | 23640 |
-| pilot | 0.55 | 0.60 | 0.57 | 19295 |
-| **macro avg** | **0.48** | **0.64** | **0.50** | — |
+| full | 0.17 | 0.84 | 0.28 | 506 |
+| none | 1.00 | 0.98 | 0.99 | 1559 |
+| partial | 0.85 | 0.68 | 0.76 | 23640 |
+| pilot | 0.75 | 0.86 | 0.80 | 19295 |
+| **macro avg** | **0.69** | **0.84** | **0.71** | — |
 """)
         st.info(
-            "**Key takeaway:** The 26-point F1 gap between Naive Bayes (0.52) and XGBoost (0.78) "
-            "quantifies exactly how much value feature interactions and correlations add. "
-            "This validates our choice of tree-based ensembles over simpler probabilistic models.",
+            "**Key takeaway:** Despite violating every assumption, NB achieves F1=0.71 — only 7 points below XGBoost (0.78). "
+            "However, NB's high recall / low precision trade-off makes it unsuitable for deployment: it over-predicts `full` adoption. "
+            "Tree-based ensembles provide the balanced precision-recall profile needed for business decisions.",
             icon=":material/lightbulb:",
         )
 
